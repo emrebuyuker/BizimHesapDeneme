@@ -28,6 +28,7 @@ public class Urunler extends AppCompatActivity {
     ArrayList<String> urunNameFB;
 
     String urunName;
+    String mod="";
 
 
     Context context = this;
@@ -36,6 +37,9 @@ public class Urunler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_urunler);
+
+        Intent intent = getIntent();
+        mod = intent.getStringExtra("mod");
 
         listViewUrunler = findViewById(R.id.listView);
 
@@ -83,19 +87,43 @@ public class Urunler extends AppCompatActivity {
 
     private void listViewOnClick() {
 
-        listViewUrunler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        System.out.println("modd = "+mod);
 
-                urunName = urunNameFB.get(position);
+        if (mod.equals("satıs")) {
 
-                Intent intent = new Intent(getApplicationContext(),UrunBilgileriDetay.class);
+            listViewUrunler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                intent.putExtra("urunName",urunName);
+                    urunName = urunNameFB.get(position);
 
-                startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), SatisIslemleriDetay.class);
 
-            }
-        });
+                    intent.putExtra("urunName", urunName);
+
+                    startActivity(intent);
+
+                }
+            });
+
+        }else{
+
+            listViewUrunler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    urunName = urunNameFB.get(position);
+
+                    Intent intent = new Intent(getApplicationContext(), UrunBilgileriDetay.class);
+
+                    intent.putExtra("urunName", urunName);
+
+                    startActivity(intent);
+
+                }
+            });
+
+
+        }
     }
 }

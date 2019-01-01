@@ -35,7 +35,7 @@
         <activity android:name=".UrunBilgileri" />
         <activity android:name=".UrunBilgileriDetay" />
         <activity android:name=".SatisIslemleri" />
-        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".SatisIslemleriDetay"></activity>
     </application>
 
 </manifest>

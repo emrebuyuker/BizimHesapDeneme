@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void urunlerButtonClick(View view) {
 
+        String mod = "ürün";
         Intent intent = new Intent(getApplicationContext(), Urunler.class);
+        intent.putExtra("mod",mod);
         startActivity(intent);
 
     }
