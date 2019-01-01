@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_items">
+
+    <item>Adet</item>
+    <item>Koli</item>
+    <item>Paket</item>
+
+    </string-array>
+    <string-array name="spinner_itemss">
+
+    <item>1</item>
+    <item>8</item>
+    <item>18</item>
+
+    </string-array>
+    <string-array name="spinner_itemsss">
+
+        <item>DAHİL</item>
+        <item>HARİÇ</item>
+
+    </string-array>
+</resources>

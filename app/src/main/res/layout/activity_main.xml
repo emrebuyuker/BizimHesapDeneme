@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <Button
+        android:id="@+id/fihrist"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="fihristButtonClick"
+        android:text="FİHRİST"
+        app:layout_constraintStart_toStartOf="@+id/calisanlar"
+        app:layout_constraintTop_toBottomOf="@+id/calisanlar" />
+
+    <Button
+        android:id="@+id/raporlar"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="raporlarButtonClick"
+        android:text="RAPORLAR"
+        app:layout_constraintStart_toStartOf="@+id/hesaplar"
+        app:layout_constraintTop_toBottomOf="@+id/hesaplar" />
+
+    <Button
+        android:id="@+id/hesaplar"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="hesaplarButtonClick"
+        android:text="HESAPLAR"
+        app:layout_constraintStart_toStartOf="@+id/satislar"
+        app:layout_constraintTop_toBottomOf="@+id/satislar" />
+
+    <Button
+        android:id="@+id/calisanlar"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="calisanlarButtonClick"
+        android:text="ÇALIŞANLAR"
+        app:layout_constraintStart_toStartOf="@+id/masraflar"
+        app:layout_constraintTop_toBottomOf="@+id/masraflar" />
+
+    <Button
+        android:id="@+id/stoklar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="stoklarButtonClick"
+        android:text="STOKLAR"
+        app:layout_constraintEnd_toEndOf="@+id/alislar"
+        app:layout_constraintTop_toBottomOf="@+id/alislar" />
+
+    <Button
+        android:id="@+id/satislar"
+        android:layout_width="109dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="satislarButtonClick"
+        android:text="SATIŞLAR"
+        app:layout_constraintStart_toStartOf="@+id/musteriler"
+        app:layout_constraintTop_toBottomOf="@+id/musteriler" />
+
+    <Button
+        android:id="@+id/alislar"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="alislarButtonClick"
+        android:text="ALIŞLAR"
+        app:layout_constraintEnd_toEndOf="@+id/urunler"
+        app:layout_constraintTop_toBottomOf="@+id/urunler" />
+
+    <Button
+        android:id="@+id/masraflar"
+        android:layout_width="116dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="masraflarButtonClick"
+        android:text="MASRAFLAR"
+        app:layout_constraintStart_toStartOf="@+id/tedarikciler"
+        app:layout_constraintTop_toBottomOf="@+id/tedarikciler" />
+
+    <Button
+        android:id="@+id/musteriler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:onClick="musterilerButtonClick"
+        android:text="MÜŞTERİLER"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tedarikciler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="tedarikcilerButtonClick"
+        android:text="TEDARİKCİLER"
+        app:layout_constraintEnd_toStartOf="@+id/urunler"
+        app:layout_constraintStart_toEndOf="@+id/musteriler"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/urunler"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="urunlerButtonClick"
+        android:text="ÜRÜNLER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
