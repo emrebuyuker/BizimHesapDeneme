@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,10 +25,21 @@ public class Satislar extends AppCompatActivity {
 
     ListView listViewMusteri;
 
+    ArrayList<String> islemTarihiFB;
+    ArrayList<String> isimFB;
+    ArrayList<String> kdvFB;
     ArrayList<String> musteriNameFB;
+    ArrayList<String> netTutarFB;
+    ArrayList<String> toplamFB;
+    ArrayList<String> adetFB;
 
+    String islemTarihi;
+    String isim;
+    String kdv;
     String musteriName;
-    String mod="";
+    String netTutar;
+    String toplam;
+    String adet;
 
 
     Context context = this;
@@ -41,9 +53,17 @@ public class Satislar extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
 
+        islemTarihiFB = new ArrayList<String>();
+        isimFB = new ArrayList<String>();
+        kdvFB = new ArrayList<String>();
         musteriNameFB = new ArrayList<String>();
+        netTutarFB = new ArrayList<String>();
+        toplamFB = new ArrayList<String>();
+        adetFB = new ArrayList<String>();
+
 
         getDataFirebase();
+        listViewOnClick();
     }
 
     public void satisIcinMusteriSecmeButtonClick(View view) {
@@ -67,16 +87,65 @@ public class Satislar extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
-                    musteriNameFB.add((String) hashMap.get("islemTarihi"));
+                    islemTarihiFB.add((String) hashMap.get("islemTarihi"));
+                    isimFB.add((String) hashMap.get("isim"));
+                    kdvFB.add((String) hashMap.get("kdv"));
+                    musteriNameFB.add((String) hashMap.get("musteriName"));
+                    netTutarFB.add((String) hashMap.get("netTutar"));
+                    toplamFB.add((String) hashMap.get("toplam"));
+                    adetFB.add((String) hashMap.get("adet"));
                 }
+                /*System.out.println("aaaaislemTarihiFB= "+islemTarihiFB);
+                System.out.println("aaaaisimFB= "+isimFB);
+                System.out.println("aaaakdvFB= "+kdvFB);
+                System.out.println("aaaamusteriNameFB= "+musteriNameFB);
+                System.out.println("aaaanetTutarFB= "+netTutarFB);
+                System.out.println("aaaatoplamFB= "+toplamFB);*/
 
-                ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Satislar.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
+                ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Satislar.this, android.R.layout.simple_list_item_1, android.R.id.text1, islemTarihiFB);
                 listViewMusteri.setAdapter(veriAdaptoru);
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void listViewOnClick() {
+
+        listViewMusteri.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                /*ArrayList<String> islemTarihiFB;
+                ArrayList<String> isimFB;
+                ArrayList<String> kdvFB;
+                ArrayList<String> musteriNameFB;
+                ArrayList<String> netTutarFB;
+                ArrayList<String> toplamFB;*/
+
+                islemTarihi = islemTarihiFB.get(position);
+                isim = isimFB.get(position);
+                kdv = kdvFB.get(position);
+                musteriName = musteriNameFB.get(position);
+                netTutar = netTutarFB.get(position);
+                toplam = toplamFB.get(position);
+                adet = adetFB.get(position);
+
+                Intent intent = new Intent(getApplicationContext(), SatisBilgisi.class);
+
+                intent.putExtra("islemTarihi", islemTarihi);
+                intent.putExtra("isim", isim);
+                intent.putExtra("kdv", kdv);
+                intent.putExtra("musteriName", musteriName);
+                intent.putExtra("netTutar", netTutar);
+                intent.putExtra("toplam", toplam);
+                intent.putExtra("adet", adet);
+
+                startActivity(intent);
 
             }
         });

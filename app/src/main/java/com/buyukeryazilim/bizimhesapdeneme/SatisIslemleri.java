@@ -78,6 +78,7 @@ public class SatisIslemleri extends AppCompatActivity {
         String tarih = islemTarihi.getText().toString();
 
         myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+        myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
         myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
         myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
         myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
