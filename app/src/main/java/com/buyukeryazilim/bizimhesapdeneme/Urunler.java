@@ -29,6 +29,7 @@ public class Urunler extends AppCompatActivity {
 
     String urunName;
     String mod="";
+    String musteriName;
 
 
     Context context = this;
@@ -40,6 +41,7 @@ public class Urunler extends AppCompatActivity {
 
         Intent intent = getIntent();
         mod = intent.getStringExtra("mod");
+        musteriName = intent.getStringExtra("musteriName");
 
         listViewUrunler = findViewById(R.id.listView);
 
@@ -100,6 +102,7 @@ public class Urunler extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), SatisIslemleriDetay.class);
 
                     intent.putExtra("urunName", urunName);
+                    intent.putExtra("musteriName", musteriName);
 
                     startActivity(intent);
 

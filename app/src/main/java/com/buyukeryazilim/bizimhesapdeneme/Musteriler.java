@@ -100,9 +100,20 @@ public class Musteriler extends AppCompatActivity {
 
                     musteriName = musteriNameFB.get(position);
 
+                    String isim = "";
+                    String adet = "0";
+                    String netTutar = "";
+                    String kdv = "";
+                    String toplam = "0";
                     Intent intent = new Intent(getApplicationContext(), SatisIslemleri.class);
 
                     intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("isim", isim);
+                    intent.putExtra("adet", adet);
+                    intent.putExtra("netTutar", netTutar);
+                    intent.putExtra("kdv", kdv);
+                    intent.putExtra("toplam", toplam);
+
 
                     startActivity(intent);
 

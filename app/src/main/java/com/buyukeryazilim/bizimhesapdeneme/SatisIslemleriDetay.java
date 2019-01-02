@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ public class SatisIslemleriDetay extends AppCompatActivity {
     TextView tutar;
     TextView KDVOrani;
     TextView KDVTL;
-    TextView toplam;
+    TextView textViewToplam;
 
     EditText miktar;
 
@@ -35,6 +36,8 @@ public class SatisIslemleriDetay extends AppCompatActivity {
     ArrayList<String> KDVOranıFB;
 
     FirebaseDatabase database;
+
+    String musteriName;
 
     Context context = this;
 
@@ -48,11 +51,12 @@ public class SatisIslemleriDetay extends AppCompatActivity {
         tutar = findViewById(R.id.textViewTutar);
         KDVOrani = findViewById(R.id.textViewKDVOrani);
         KDVTL = findViewById(R.id.textViewKDVTL);
-        toplam = findViewById(R.id.textViewToplam);
+        textViewToplam = findViewById(R.id.textViewToplam);
         miktar = findViewById(R.id.editTextMiktar);
 
         Intent intent = getIntent();
         final String urunName = intent.getStringExtra("urunName");
+        musteriName = intent.getStringExtra("musteriName");
 
         urunIsmi.setText(urunName);
 
@@ -118,12 +122,34 @@ public class SatisIslemleriDetay extends AppCompatActivity {
                     tutar.setText(Integer.toString(ifade3));
                     int kdvtl = Integer.parseInt(KDVOranıFB.get(0));
                     KDVTL.setText(Integer.toString(ifade3*kdvtl/100));
-                    toplam.setText(Integer.toString(ifade3+ifade3*kdvtl/100));
+                    textViewToplam.setText(Integer.toString(ifade3+ifade3*kdvtl/100));
                 }
 
 
             }
         });
+
+    }
+
+    public void kaydetButtonClick (View view) {
+
+
+        String isim = urunIsmi.getText().toString();
+        String adet = miktar.getText().toString();
+        String netTutar = tutar.getText().toString();
+        String kdv = KDVTL.getText().toString();
+        String toplam = textViewToplam.getText().toString();
+
+        Intent intent = new Intent(getApplicationContext(), SatisIslemleri.class);
+
+        intent.putExtra("musteriName", musteriName);
+        intent.putExtra("isim", isim);
+        intent.putExtra("adet", adet);
+        intent.putExtra("netTutar", netTutar);
+        intent.putExtra("kdv", kdv);
+        intent.putExtra("toplam", toplam);
+
+        startActivity(intent);
 
     }
 }
