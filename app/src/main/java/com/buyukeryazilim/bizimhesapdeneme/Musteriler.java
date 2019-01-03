@@ -43,6 +43,7 @@ public class Musteriler extends AppCompatActivity {
 
 
         listViewMusteri = findViewById(R.id.listView);
+        listViewMusteri.clearAnimation();
 
         database = FirebaseDatabase.getInstance();
 

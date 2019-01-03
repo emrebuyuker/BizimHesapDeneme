@@ -24,9 +24,9 @@ import java.util.HashMap;
 public class SatisIslemleriDetay extends AppCompatActivity {
 
     TextView urunIsmi;
-    TextView birimFiyat;
+    TextView textVBirimFiyat;
     TextView tutar;
-    TextView KDVOrani;
+    TextView textVKDVOrani;
     TextView KDVTL;
     TextView textViewToplam;
 
@@ -38,6 +38,8 @@ public class SatisIslemleriDetay extends AppCompatActivity {
     FirebaseDatabase database;
 
     String musteriName;
+    String birimFiyat;
+    String kdvOrani;
 
     Context context = this;
 
@@ -47,9 +49,9 @@ public class SatisIslemleriDetay extends AppCompatActivity {
         setContentView(R.layout.activity_satis_islemleri_detay);
 
         urunIsmi = findViewById(R.id.textViewUrunIsmi);
-        birimFiyat = findViewById(R.id.textViewBirimFiyat);
+        textVBirimFiyat = findViewById(R.id.textViewBirimFiyat);
         tutar = findViewById(R.id.textViewTutar);
-        KDVOrani = findViewById(R.id.textViewKDVOrani);
+        textVKDVOrani = findViewById(R.id.textViewKDVOrani);
         KDVTL = findViewById(R.id.textViewKDVTL);
         textViewToplam = findViewById(R.id.textViewToplam);
         miktar = findViewById(R.id.editTextMiktar);
@@ -57,15 +59,19 @@ public class SatisIslemleriDetay extends AppCompatActivity {
         Intent intent = getIntent();
         final String urunName = intent.getStringExtra("urunName");
         musteriName = intent.getStringExtra("musteriName");
+        birimFiyat = intent.getStringExtra("birimFiyat");
+        kdvOrani = intent.getStringExtra("kdvOrani");
 
         urunIsmi.setText(urunName);
+        textVBirimFiyat.setText(birimFiyat);
+        textVKDVOrani.setText(kdvOrani);
 
         database = FirebaseDatabase.getInstance();
 
         satisFiyatiFB = new ArrayList<String>();
         KDVOranıFB = new ArrayList<String>();
 
-        getDataFirebase();
+        //getDataFirebase();
         addTextChangedListener();
 
     }
@@ -85,8 +91,8 @@ public class SatisIslemleriDetay extends AppCompatActivity {
 
                 }
 
-                KDVOrani.setText(KDVOranıFB.get(0));
-                birimFiyat.setText(satisFiyatiFB.get(0));
+                //textVKDVOrani.setText(KDVOranıFB.get(0));
+                //textVBirimFiyat.setText(satisFiyatiFB.get(0));
             }
 
             @Override

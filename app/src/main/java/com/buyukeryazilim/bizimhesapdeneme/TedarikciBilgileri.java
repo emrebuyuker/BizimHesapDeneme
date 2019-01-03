@@ -57,7 +57,7 @@ public class TedarikciBilgileri extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),"Tedarikçi eklendi",Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(getApplicationContext(), TedarikciBilgileri.class);
+        Intent intent = new Intent(getApplicationContext(), Tedarikciler.class);
         startActivity(intent);
 
     }

@@ -26,10 +26,14 @@ public class Urunler extends AppCompatActivity {
     ListView listViewUrunler;
 
     ArrayList<String> urunNameFB;
+    ArrayList<String> birimFiyatFB;
+    ArrayList<String> kdvOraniFB;
 
     String urunName;
     String mod="";
     String musteriName;
+    String birimFiyat;
+    String kdvOrani="";
 
 
     Context context = this;
@@ -44,10 +48,13 @@ public class Urunler extends AppCompatActivity {
         musteriName = intent.getStringExtra("musteriName");
 
         listViewUrunler = findViewById(R.id.listView);
+        listViewUrunler.clearAnimation();
 
         database = FirebaseDatabase.getInstance();
 
         urunNameFB = new ArrayList<String>();
+        birimFiyatFB = new ArrayList<String>();
+        kdvOraniFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -73,6 +80,8 @@ public class Urunler extends AppCompatActivity {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
                     urunNameFB.add((String) hashMap.get("isim"));
+                    birimFiyatFB.add((String) hashMap.get("satisFiyati"));
+                    kdvOraniFB.add((String) hashMap.get("satisKDVOranı"));
                 }
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Urunler.this, android.R.layout.simple_list_item_1, android.R.id.text1, urunNameFB);
@@ -98,11 +107,15 @@ public class Urunler extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     urunName = urunNameFB.get(position);
+                    birimFiyat = birimFiyatFB.get(position);
+                    kdvOrani = kdvOraniFB.get(position);
 
                     Intent intent = new Intent(getApplicationContext(), SatisIslemleriDetay.class);
 
                     intent.putExtra("urunName", urunName);
                     intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("birimFiyat", birimFiyat);
+                    intent.putExtra("kdvOrani", kdvOrani);
 
                     startActivity(intent);
 

@@ -38,6 +38,7 @@ public class Tedarikciler extends AppCompatActivity {
         setContentView(R.layout.activity_tedarikciler);
 
         listViewTedarikci = findViewById(R.id.listView);
+        listViewTedarikci.clearAnimation();
 
         database = FirebaseDatabase.getInstance();
 

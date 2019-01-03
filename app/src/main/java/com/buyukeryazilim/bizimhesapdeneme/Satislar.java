@@ -50,6 +50,7 @@ public class Satislar extends AppCompatActivity {
         setContentView(R.layout.activity_satislar);
 
         listViewMusteri = findViewById(R.id.listView);
+        listViewMusteri.clearAnimation();
 
         database = FirebaseDatabase.getInstance();
 
@@ -119,13 +120,6 @@ public class Satislar extends AppCompatActivity {
         listViewMusteri.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                /*ArrayList<String> islemTarihiFB;
-                ArrayList<String> isimFB;
-                ArrayList<String> kdvFB;
-                ArrayList<String> musteriNameFB;
-                ArrayList<String> netTutarFB;
-                ArrayList<String> toplamFB;*/
 
                 islemTarihi = islemTarihiFB.get(position);
                 isim = isimFB.get(position);

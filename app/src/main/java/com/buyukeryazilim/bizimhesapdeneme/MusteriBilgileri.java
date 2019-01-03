@@ -58,7 +58,10 @@ public class MusteriBilgileri extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),"Müşteri eklendi",Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(getApplicationContext(), MusteriBilgileri.class);
+
+        String mod = "satış";
+        Intent intent = new Intent(getApplicationContext(), Musteriler.class);
+        intent.putExtra("mod",mod);
         startActivity(intent);
 
     }
