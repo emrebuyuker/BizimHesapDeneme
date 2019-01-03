@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Satislar extends AppCompatActivity {
@@ -103,6 +104,8 @@ public class Satislar extends AppCompatActivity {
                 System.out.println("aaaanetTutarFB= "+netTutarFB);
                 System.out.println("aaaatoplamFB= "+toplamFB);*/
 
+
+                Collections.sort(islemTarihiFB);
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Satislar.this, android.R.layout.simple_list_item_1, android.R.id.text1, islemTarihiFB);
                 listViewMusteri.setAdapter(veriAdaptoru);
 

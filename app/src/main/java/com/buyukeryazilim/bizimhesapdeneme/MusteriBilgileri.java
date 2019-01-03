@@ -56,6 +56,9 @@ public class MusteriBilgileri extends AppCompatActivity {
         myRef.child("Müşteriler").child(uuidString).child("mail").setValue(mail);
         myRef.child("Müşteriler").child(uuidString).child("adres").setValue(adres);
 
+        myRef.child("Kasa").child(isim).child("borç").setValue("0");
+        myRef.child("Kasa").child(isim).child("toplamciro").setValue("0");
+
         Toast.makeText(getApplicationContext(),"Müşteri eklendi",Toast.LENGTH_LONG).show();
 
 

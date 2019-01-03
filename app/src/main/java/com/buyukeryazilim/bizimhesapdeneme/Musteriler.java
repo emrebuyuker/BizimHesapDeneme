@@ -26,8 +26,14 @@ public class Musteriler extends AppCompatActivity {
     ListView listViewMusteri;
 
     ArrayList<String> musteriNameFB;
+    ArrayList<String> musteriAdresFB;
+    ArrayList<String> musteriMailFB;
+    ArrayList<String> musteriTelefonFB;
 
     String musteriName;
+    String musteriAdres;
+    String musteriMail;
+    String musteriTelefon;
     String mod="";
 
 
@@ -48,6 +54,9 @@ public class Musteriler extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         musteriNameFB = new ArrayList<String>();
+        musteriAdresFB = new ArrayList<String>();
+        musteriMailFB = new ArrayList<String>();
+        musteriTelefonFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -73,6 +82,9 @@ public class Musteriler extends AppCompatActivity {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
                     musteriNameFB.add((String) hashMap.get("isim"));
+                    musteriAdresFB.add((String) hashMap.get("adres"));
+                    musteriMailFB.add((String) hashMap.get("mail"));
+                    musteriTelefonFB.add((String) hashMap.get("telefon"));
                 }
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
@@ -127,10 +139,16 @@ public class Musteriler extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     musteriName = musteriNameFB.get(position);
+                    musteriAdres = musteriAdresFB.get(position);
+                    musteriMail= musteriMailFB.get(position);
+                    musteriTelefon = musteriTelefonFB.get(position);
 
                     Intent intent = new Intent(getApplicationContext(), MusteriBilgileriDetay.class);
 
                     intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("musteriAdres", musteriAdres);
+                    intent.putExtra("musteriMail", musteriMail);
+                    intent.putExtra("musteriTelefon", musteriTelefon);
 
                     startActivity(intent);
 

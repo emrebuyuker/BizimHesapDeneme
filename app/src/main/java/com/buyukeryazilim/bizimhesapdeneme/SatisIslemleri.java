@@ -2,16 +2,22 @@ package com.buyukeryazilim.bizimhesapdeneme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class SatisIslemleri extends AppCompatActivity {
@@ -26,6 +32,9 @@ public class SatisIslemleri extends AppCompatActivity {
     String netTutar;
     String kdv;
     String toplam;
+
+    ArrayList<String> borçFB;
+    ArrayList<String> toplamciroFB;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
@@ -56,6 +65,11 @@ public class SatisIslemleri extends AppCompatActivity {
         Date tarih = new Date();
         SimpleDateFormat bugun = new SimpleDateFormat("dd/MM/yyyy");
         islemTarihi.setText(bugun.format(tarih));
+
+        borçFB = new ArrayList<String>();
+        toplamciroFB = new ArrayList<String>();
+
+        getDataFirebase();
     }
 
     public void urunEkleButtonClick(View view) {
@@ -85,6 +99,13 @@ public class SatisIslemleri extends AppCompatActivity {
         myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
         myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
 
+        int borçInt = Integer.parseInt(borçFB.get(0));
+        int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
+        int toplamInt = Integer.parseInt(toplam);
+
+        myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+        myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+
         Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
         String isim = "";
@@ -93,7 +114,7 @@ public class SatisIslemleri extends AppCompatActivity {
         String kdv = "";
         String toplam = "0";
         String musteriName=" ";
-        Intent intent = new Intent(getApplicationContext(), SatisIslemleri.class);
+        Intent intent = new Intent(getApplicationContext(), Satislar.class);
 
         intent.putExtra("musteriName", musteriName);
         intent.putExtra("isim", isim);
@@ -104,6 +125,37 @@ public class SatisIslemleri extends AppCompatActivity {
 
         startActivity(intent);
 
+    }
+
+    private void getDataFirebase() {
+
+        System.out.println("musteriName "+musteriName);
+
+        DatabaseReference newReference = database.getReference("Kasa");
+        newReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    if (ds.getKey().equals(musteriName)) {
+
+                        HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
+                        borçFB.add((String) hashMap.get("borç"));
+                        toplamciroFB.add((String) hashMap.get("toplamciro"));
+                    }
+
+                }
+
+                System.out.println("aaaborçFB = " +borçFB);
+                System.out.println("aaatoplamciroFB = " +toplamciroFB);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
