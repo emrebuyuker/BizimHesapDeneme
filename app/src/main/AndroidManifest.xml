@@ -36,7 +36,8 @@
         <activity android:name=".UrunBilgileriDetay" />
         <activity android:name=".SatisIslemleri" />
         <activity android:name=".SatisIslemleriDetay" />
-        <activity android:name=".SatisBilgisi"></activity>
+        <activity android:name=".SatisBilgisi" />
+        <activity android:name=".OdemeEkrani"></activity>
     </application>
 
 </manifest>
