@@ -8,16 +8,6 @@
     tools:layout_editor_absoluteY="81dp">
 
     <Button
-        android:id="@+id/fihrist"
-        android:layout_width="121dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:onClick="fihristButtonClick"
-        android:text="FİHRİST"
-        app:layout_constraintStart_toStartOf="@+id/calisanlar"
-        app:layout_constraintTop_toBottomOf="@+id/calisanlar" />
-
-    <Button
         android:id="@+id/raporlar"
         android:layout_width="111dp"
         android:layout_height="wrap_content"

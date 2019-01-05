@@ -91,12 +91,5 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
-    public void fihristButtonClick(View view) {
-
-        Intent intent = new Intent(getApplicationContext(), Fihrist.class);
-        startActivity(intent);
-
-    }
 }
 

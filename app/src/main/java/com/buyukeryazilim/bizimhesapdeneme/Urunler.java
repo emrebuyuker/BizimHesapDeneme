@@ -26,9 +26,13 @@ public class Urunler extends AppCompatActivity {
 
     ListView listViewUrunler;
 
+    ArrayList<String> alisFiyatiFB;
+    ArrayList<String> alisKDVOranıFB;
     ArrayList<String> urunNameFB;
-    ArrayList<String> birimFiyatFB;
-    ArrayList<String> kdvOraniFB;
+    ArrayList<String> satisFiyatFB;
+    ArrayList<String> satisKDVOraniFB;
+    ArrayList<String> urunTipiFB;
+    ArrayList<String> urunAdetiFB;
 
     String urunName;
     String mod="";
@@ -54,8 +58,12 @@ public class Urunler extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         urunNameFB = new ArrayList<String>();
-        birimFiyatFB = new ArrayList<String>();
-        kdvOraniFB = new ArrayList<String>();
+        satisFiyatFB = new ArrayList<String>();
+        satisKDVOraniFB = new ArrayList<String>();
+        alisFiyatiFB = new ArrayList<String>();
+        alisKDVOranıFB = new ArrayList<String>();
+        urunTipiFB = new ArrayList<String>();
+        urunAdetiFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -81,8 +89,12 @@ public class Urunler extends AppCompatActivity {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
                     urunNameFB.add((String) hashMap.get("isim"));
-                    birimFiyatFB.add((String) hashMap.get("satisFiyati"));
-                    kdvOraniFB.add((String) hashMap.get("satisKDVOranı"));
+                    satisFiyatFB.add((String) hashMap.get("satisFiyati"));
+                    satisKDVOraniFB.add((String) hashMap.get("satisKDVOranı"));
+                    alisFiyatiFB.add((String) hashMap.get("alisFiyati"));
+                    alisKDVOranıFB.add((String) hashMap.get("alisKDVOranı"));
+                    urunTipiFB.add((String) hashMap.get("urunTipi"));
+                    urunAdetiFB.add((String) hashMap.get("adet"));
                 }
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Urunler.this, android.R.layout.simple_list_item_1, android.R.id.text1, urunNameFB);
@@ -108,8 +120,8 @@ public class Urunler extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     urunName = urunNameFB.get(position);
-                    birimFiyat = birimFiyatFB.get(position);
-                    kdvOrani = kdvOraniFB.get(position);
+                    birimFiyat = satisFiyatFB.get(position);
+                    kdvOrani = satisKDVOraniFB.get(position);
 
                     Intent intent = new Intent(getApplicationContext(), SatisIslemleriDetay.class);
 
@@ -133,7 +145,13 @@ public class Urunler extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), UrunBilgileriDetay.class);
 
-                    intent.putExtra("urunName", urunName);
+                    intent.putExtra("urunName", urunNameFB.get(position));
+                    intent.putExtra("satisFiyat", satisFiyatFB.get(position));
+                    intent.putExtra("satisKDVOranı", satisKDVOraniFB.get(position));
+                    intent.putExtra("alisFiyati", alisFiyatiFB.get(position));
+                    intent.putExtra("alisKDVOranı", alisKDVOranıFB.get(position));
+                    intent.putExtra("urunTipi", urunTipiFB.get(position));
+                    intent.putExtra("urunAdeti", urunAdetiFB.get(position));
 
                     startActivity(intent);
 

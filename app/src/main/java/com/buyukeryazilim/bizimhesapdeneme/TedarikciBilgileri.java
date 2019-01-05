@@ -30,7 +30,7 @@ public class TedarikciBilgileri extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tedarikci_bilgileri);
 
-        eTextIsim = findViewById(R.id.editTextIsim);
+        eTextIsim = findViewById(R.id.editTextMasrafIsim);
         eTextTelefon = findViewById(R.id.editTextTelefon);
         eTextMail = findViewById(R.id.editTextMail);
         eTextAdres = findViewById(R.id.editTextAdres);

@@ -36,7 +36,7 @@ public class UrunBilgileri extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_urun_bilgileri);
 
-        eTextIsim = findViewById(R.id.editTextIsim);
+        eTextIsim = findViewById(R.id.editTextMasrafIsim);
         eTextSatisFiyati = findViewById(R.id.editTextSatisFiyati);
         eTextAlisFiyati = findViewById(R.id.editTextAlisFiyati);
         spinUrunTipi = findViewById(R.id.spinnerUrunTipi);
@@ -72,6 +72,7 @@ public class UrunBilgileri extends AppCompatActivity {
         myRef.child("Ürünler").child(uuidString).child("satisKDVTuru").setValue(satisKDVTuru);
         myRef.child("Ürünler").child(uuidString).child("alisKDVOranı").setValue(alisKDVOranı);
         myRef.child("Ürünler").child(uuidString).child("alisKDVTuru").setValue(alisKDVTuru);
+        myRef.child("Ürünler").child(uuidString).child("adet").setValue("0");
 
         Toast.makeText(getApplicationContext(),"Ürün eklendi",Toast.LENGTH_LONG).show();
 

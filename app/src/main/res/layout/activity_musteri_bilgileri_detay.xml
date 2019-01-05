@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewMusteriName14" />
 
     <TextView
-        android:id="@+id/textViewAlacagı"
+        android:id="@+id/textViewSatisKDVOrani"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -29,7 +29,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewMusteriName9"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName6"
-        app:layout_constraintTop_toBottomOf="@+id/textViewToplamCiro" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSatisFiyati" />
 
     <TextView
         android:id="@+id/textViewMusteriName6"
@@ -40,7 +40,7 @@
         android:text="Alacağı :"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewToplamCiro" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSatisFiyati" />
 
     <TextView
         android:id="@+id/textViewMusteriName14"
@@ -51,10 +51,10 @@
         android:text="TL"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAdres" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlısKDVOrani" />
 
     <TextView
-        android:id="@+id/textViewToplamCiro"
+        android:id="@+id/textViewSatisFiyati"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -65,7 +65,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/textViewMusteriName14"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName12"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAdres" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlısKDVOrani" />
 
     <TextView
         android:id="@+id/textViewMusteriName12"
@@ -76,7 +76,7 @@
         android:text="Toplam Cirosu :"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAdres" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlısKDVOrani" />
 
     <TextView
         android:id="@+id/textViewMusteriName11"
@@ -87,10 +87,10 @@
         android:text="Adres :"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMail" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlısFiyati" />
 
     <TextView
-        android:id="@+id/textViewMail"
+        android:id="@+id/textViewAlısFiyati"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -101,10 +101,10 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName8"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTelefonNumarasi" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewToplamStok" />
 
     <TextView
-        android:id="@+id/textViewAdres"
+        android:id="@+id/textViewAlısKDVOrani"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -115,7 +115,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName11"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMail" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAlısFiyati" />
 
     <TextView
         android:id="@+id/textViewMusteriName8"
@@ -126,7 +126,7 @@
         android:text="E Mail :"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTelefonNumarasi" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewToplamStok" />
 
     <TextView
         android:id="@+id/textViewMusteriName7"
@@ -153,7 +153,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewMusteriName7"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName5"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAlacagı" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSatisKDVOrani" />
 
     <TextView
         android:id="@+id/textViewMusteriName5"
@@ -168,7 +168,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewMusteriName6" />
 
     <TextView
-        android:id="@+id/textViewTelefonNumarasi"
+        android:id="@+id/textViewToplamStok"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -179,7 +179,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewMusteriName3"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMusteriName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUrunName" />
 
     <TextView
         android:id="@+id/textViewMusteriName3"
@@ -190,7 +190,7 @@
         android:text="Telefon Numarası :"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMusteriName" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewUrunName" />
 
     <TextView
         android:id="@+id/textViewMusteriName2"
@@ -204,7 +204,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <TextView
-        android:id="@+id/textViewMusteriName"
+        android:id="@+id/textViewUrunName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

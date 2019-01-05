@@ -38,13 +38,13 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musteri_bilgileri_detay);
 
-        textViewMusteriName = findViewById(R.id.textViewMusteriName);
-        textViTelefonNumarasi = findViewById(R.id.textViewTelefonNumarasi);
-        textVMail = findViewById(R.id.textViewMail);
-        textVAdres = findViewById(R.id.textViewAdres);
-        textVToplamCiro = findViewById(R.id.textViewToplamCiro);
+        textViewMusteriName = findViewById(R.id.textViewUrunName);
+        textViTelefonNumarasi = findViewById(R.id.textViewToplamStok);
+        textVMail = findViewById(R.id.textViewAlısFiyati);
+        textVAdres = findViewById(R.id.textViewAlısKDVOrani);
+        textVToplamCiro = findViewById(R.id.textViewSatisFiyati);
         textVBorc = findViewById(R.id.textViewBorc);
-        textVAlacagi = findViewById(R.id.textViewAlacagı);
+        textVAlacagi = findViewById(R.id.textViewSatisKDVOrani);
 
         Intent intent = getIntent();
         musteriName = intent.getStringExtra("musteriName");

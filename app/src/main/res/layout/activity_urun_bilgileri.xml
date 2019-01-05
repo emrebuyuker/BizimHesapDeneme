@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextIsim"
+        android:id="@+id/editTextMasrafIsim"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -112,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toBottomOf="@+id/editTextIsim" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMasrafIsim" />
 
     <TextView
         android:id="@+id/textView13"
@@ -121,8 +121,8 @@
         android:layout_marginTop="8dp"
         android:text="Ürün Tipi :"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/editTextIsim"
-        app:layout_constraintTop_toBottomOf="@+id/editTextIsim" />
+        app:layout_constraintStart_toStartOf="@+id/editTextMasrafIsim"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMasrafIsim" />
 
     <TextView
         android:id="@+id/textView14"
