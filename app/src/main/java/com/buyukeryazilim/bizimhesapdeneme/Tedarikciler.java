@@ -27,9 +27,9 @@ public class Tedarikciler extends AppCompatActivity {
     ListView listViewTedarikci;
 
     ArrayList<String> tedarikciNameFB;
-
-    String tedarikciName;
-
+    ArrayList<String> tedarikciAdresFB;
+    ArrayList<String> tedarikciMailFB;
+    ArrayList<String> tedarikciTelefonFB;
 
     Context context = this;
 
@@ -44,6 +44,9 @@ public class Tedarikciler extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         tedarikciNameFB = new ArrayList<String>();
+        tedarikciAdresFB = new ArrayList<String>();
+        tedarikciMailFB = new ArrayList<String>();
+        tedarikciTelefonFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -69,6 +72,9 @@ public class Tedarikciler extends AppCompatActivity {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
                     tedarikciNameFB.add((String) hashMap.get("isim"));
+                    tedarikciAdresFB.add((String) hashMap.get("adres"));
+                    tedarikciMailFB.add((String) hashMap.get("mail"));
+                    tedarikciTelefonFB.add((String) hashMap.get("telefon"));
                 }
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Tedarikciler.this, android.R.layout.simple_list_item_1, android.R.id.text1, tedarikciNameFB);
@@ -89,11 +95,14 @@ public class Tedarikciler extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                tedarikciName = tedarikciNameFB.get(position);
+                Intent intent = new Intent(getApplicationContext(), TedarikciBilgileriDetay.class);
 
-                Intent intent = new Intent(getApplicationContext(),TedarikciBilgileriDetay.class);
+                System.out.println("tedarikciAdresFB.get(position)= "+tedarikciAdresFB.get(position));
 
-                intent.putExtra("tedarikciName", tedarikciName);
+                intent.putExtra("tedarikciName", tedarikciNameFB.get(position));
+                intent.putExtra("tedarikciAdres", tedarikciAdresFB.get(position));
+                intent.putExtra("tedarikciMail", tedarikciMailFB.get(position));
+                intent.putExtra("tedarikciTelefon", tedarikciTelefonFB.get(position));
 
                 startActivity(intent);
 

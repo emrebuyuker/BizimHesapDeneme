@@ -108,7 +108,7 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
 
     public void odemeButtonClick (View view) {
 
-        Intent intent = new Intent(getApplicationContext(), OdemeEkrani.class);
+        Intent intent = new Intent(getApplicationContext(), MusteriOdemeEkrani.class);
 
         intent.putExtra("borç", borçFB.get(0));
         intent.putExtra("musteriName", musteriName);

@@ -55,6 +55,9 @@ public class TedarikciBilgileri extends AppCompatActivity {
         myRef.child("Tedarikçiler").child(uuidString).child("mail").setValue(mail);
         myRef.child("Tedarikçiler").child(uuidString).child("adres").setValue(adres);
 
+        myRef.child("TedarikciKasa").child(isim).child("borç").setValue("0");
+        myRef.child("TedarikciKasa").child(isim).child("toplamciro").setValue("0");
+
         Toast.makeText(getApplicationContext(),"Tedarikçi eklendi",Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getApplicationContext(), Tedarikciler.class);

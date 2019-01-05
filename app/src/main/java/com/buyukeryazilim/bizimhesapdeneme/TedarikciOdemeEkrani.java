@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class OdemeEkrani extends AppCompatActivity {
+public class TedarikciOdemeEkrani extends AppCompatActivity {
 
     EditText editTOdenecekTutar;
     TextView textVToplamBorc;
@@ -32,7 +32,7 @@ public class OdemeEkrani extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_odeme_ekrani);
+        setContentView(R.layout.activity_tedarikci_odeme_ekrani);
 
         editTOdenecekTutar = findViewById(R.id.editTextOdenecekTutar);
         textVToplamBorc = findViewById(R.id.textViewToplamBorc);
@@ -48,16 +48,15 @@ public class OdemeEkrani extends AppCompatActivity {
 
         addTextChangedListener();
 
-
     }
 
     public void odemeYapButtonClick(View view) {
 
-        myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(toplamBorcInt-odenecekTutarInt));
+        myRef.child("TedarikciKasa").child(musteriName).child("borç").setValue(Integer.toString(toplamBorcInt-odenecekTutarInt));
 
         Toast.makeText(getApplicationContext(),"Ödeme İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
-        Intent intent = new Intent(getApplicationContext(), Musteriler.class);
+        Intent intent = new Intent(getApplicationContext(), Tedarikciler.class);
 
         intent.putExtra("mod", "ödeme");
 
@@ -83,7 +82,7 @@ public class OdemeEkrani extends AppCompatActivity {
 
                 if(editTOdenecekTutar.getText().toString().trim().equals("") )
                 {
-                    Toast.makeText(OdemeEkrani.this, "Lütfen ödenecek tutar giriniz", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TedarikciOdemeEkrani.this, "Lütfen ödenecek tutar giriniz", Toast.LENGTH_SHORT).show();
                 }else{
                     odenecekTutarInt = Integer.parseInt(editTOdenecekTutar.getText().toString());
                     toplamBorcInt = Integer.parseInt(borc);
