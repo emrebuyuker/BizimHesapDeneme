@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AlisIslemleriDetay extends AppCompatActivity {
@@ -27,10 +28,12 @@ public class AlisIslemleriDetay extends AppCompatActivity {
 
 
     FirebaseDatabase database;
+    DatabaseReference myRef;
 
     String musteriName;
     String birimFiyat;
     String kdvOrani;
+    String urunKey;
 
     Context context = this;
 
@@ -52,13 +55,14 @@ public class AlisIslemleriDetay extends AppCompatActivity {
         musteriName = intent.getStringExtra("musteriName");
         birimFiyat = intent.getStringExtra("birimFiyat");
         kdvOrani = intent.getStringExtra("kdvOrani");
+        urunKey = intent.getStringExtra("urunKey");
 
         urunIsmi.setText(urunName);
         textVBirimFiyat.setText(birimFiyat);
         textVKDVOrani.setText(kdvOrani);
 
         database = FirebaseDatabase.getInstance();
-
+        myRef = database.getReference();
 
         addTextChangedListener();
     }
@@ -116,6 +120,7 @@ public class AlisIslemleriDetay extends AppCompatActivity {
         intent.putExtra("netTutar", netTutar);
         intent.putExtra("kdv", kdv);
         intent.putExtra("toplam", toplam);
+        intent.putExtra("urunKey", urunKey);
 
         startActivity(intent);
 

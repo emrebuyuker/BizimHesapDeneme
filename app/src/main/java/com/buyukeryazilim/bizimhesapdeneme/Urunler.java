@@ -33,6 +33,7 @@ public class Urunler extends AppCompatActivity {
     ArrayList<String> satisKDVOraniFB;
     ArrayList<String> urunTipiFB;
     ArrayList<String> urunAdetiFB;
+    ArrayList<String> urunKeyFB;
 
     String urunName;
     String mod="";
@@ -64,6 +65,7 @@ public class Urunler extends AppCompatActivity {
         alisKDVOranıFB = new ArrayList<String>();
         urunTipiFB = new ArrayList<String>();
         urunAdetiFB = new ArrayList<String>();
+        urunKeyFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -83,11 +85,12 @@ public class Urunler extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                System.out.println("dataSnapshot = "+dataSnapshot);
+                System.out.println("dataSnapshot2 = "+dataSnapshot.getChildren());
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
+
                     urunNameFB.add((String) hashMap.get("isim"));
                     satisFiyatFB.add((String) hashMap.get("satisFiyati"));
                     satisKDVOraniFB.add((String) hashMap.get("satisKDVOranı"));
@@ -95,7 +98,11 @@ public class Urunler extends AppCompatActivity {
                     alisKDVOranıFB.add((String) hashMap.get("alisKDVOranı"));
                     urunTipiFB.add((String) hashMap.get("urunTipi"));
                     urunAdetiFB.add((String) hashMap.get("adet"));
+                    urunKeyFB.add(ds.getKey());
                 }
+
+                System.out.println("dataSnapshot3 = "+urunKeyFB);
+
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Urunler.this, android.R.layout.simple_list_item_1, android.R.id.text1, urunNameFB);
                 listViewUrunler.setAdapter(veriAdaptoru);
@@ -146,6 +153,7 @@ public class Urunler extends AppCompatActivity {
                     intent.putExtra("musteriName", musteriName);
                     intent.putExtra("birimFiyat", alisFiyatiFB.get(position));
                     intent.putExtra("kdvOrani", alisKDVOranıFB.get(position));
+                    intent.putExtra("urunKey", urunKeyFB.get(position));
 
                     startActivity(intent);
 

@@ -32,11 +32,13 @@ public class AlisIslemleri extends AppCompatActivity {
     String netTutar;
     String kdv;
     String toplam;
+    String urunKey;
 
     ArrayList<String> nakitFB;
     ArrayList<String> kredikartiFB;
     ArrayList<String> borcFB;
     ArrayList<String> ciroFB;
+    ArrayList<String> adetFB;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
@@ -64,6 +66,7 @@ public class AlisIslemleri extends AppCompatActivity {
         netTutar = intent.getStringExtra("netTutar");
         kdv = intent.getStringExtra("kdv");
         toplam = intent.getStringExtra("toplam");
+        urunKey = intent.getStringExtra("urunKey");
 
 
         textVSatısYapılanKisi.setText(musteriName);
@@ -76,6 +79,7 @@ public class AlisIslemleri extends AppCompatActivity {
         kredikartiFB = new ArrayList<String>();
         borcFB = new ArrayList<String>();
         ciroFB = new ArrayList<String>();
+        adetFB = new ArrayList<String>();
 
         getDataFirebase();
     }
@@ -115,10 +119,12 @@ public class AlisIslemleri extends AppCompatActivity {
         myRef.child("Alış").child(uuidString).child("kdv").setValue(kdv);
         myRef.child("Alış").child(uuidString).child("toplam").setValue(toplam);
 
-        System.out.println("borcFB= "+borcFB.get(0));
 
+        int adetIntFB = Integer.parseInt(adetFB.get(0));
+        int adetInt = Integer.parseInt(adet);
 
-        System.out.println("borcFB= "+borcFB);
+        myRef.child("Ürünler").child(urunKey).child("adet").setValue(Integer.toString(adetIntFB+adetInt));
+
         int nakit = Integer.parseInt(nakitFB.get(0));
 
         System.out.println("borcFB= "+borcFB.get(0));
@@ -148,30 +154,6 @@ public class AlisIslemleri extends AppCompatActivity {
         intent.putExtra("toplam", toplam);*/
 
         startActivity(intent);
-
-    }
-
-    private void getDataFirebasee() {
-
-        DatabaseReference newReference2 = database.getReference("KasaHesabı");
-        newReference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
-                    nakitFB.add((String) hashMap2.get("nakit"));
-                    kredikartiFB.add((String) hashMap2.get("kredikartı"));
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 
@@ -210,6 +192,25 @@ public class AlisIslemleri extends AppCompatActivity {
                     HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
                     nakitFB.add((String) hashMap2.get("nakit"));
                     kredikartiFB.add((String) hashMap2.get("kredikartı"));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference newReference3 = database.getReference("Ürünler").child("urunKey");
+        newReference3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
+                    adetFB.add((String) hashMap2.get("adet"));
 
                 }
             }
