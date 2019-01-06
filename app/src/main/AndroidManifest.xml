@@ -41,7 +41,8 @@
         <activity android:name=".TedarikciOdemeEkrani" />
         <activity android:name=".AlisIslemleri" />
         <activity android:name=".AlisIslemleriDetay" />
-        <activity android:name=".StokDetayi"></activity>
+        <activity android:name=".StokDetayi" />
+        <activity android:name=".SatisRaporu"></activity>
     </application>
 
 </manifest>

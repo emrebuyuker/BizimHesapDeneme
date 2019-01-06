@@ -43,6 +43,8 @@ public class SatisIslemleri extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
 
+    SimpleDateFormat bugun ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class SatisIslemleri extends AppCompatActivity {
         textVToplam.setText(toplam);
         satısYapılanKisi.setText(musteriName);
         Date tarih = new Date();
-        SimpleDateFormat bugun = new SimpleDateFormat("dd/MM/yyyy");
+        bugun = new SimpleDateFormat("dd/MM/yyyy");
         islemTarihi.setText(bugun.format(tarih));
 
         borçFB = new ArrayList<String>();
@@ -101,7 +103,13 @@ public class SatisIslemleri extends AppCompatActivity {
 
                     String tarih = islemTarihi.getText().toString();
 
+                    Date tarih2 = new Date();
+                    bugun = new SimpleDateFormat("yyyy/MM/dd");
+
+
+
                     myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+                    myRef.child("Satış").child(uuidString).child("islemTarihi2").setValue(bugun.format(tarih2));
                     myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
                     myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
                     myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
