@@ -1,8 +1,10 @@
 package com.buyukeryazilim.bizimhesapdeneme;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -35,6 +37,8 @@ public class SatisIslemleri extends AppCompatActivity {
 
     ArrayList<String> borçFB;
     ArrayList<String> toplamciroFB;
+    ArrayList<String> nakitFB;
+    ArrayList<String> kredikartiFB;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
@@ -68,6 +72,8 @@ public class SatisIslemleri extends AppCompatActivity {
 
         borçFB = new ArrayList<String>();
         toplamciroFB = new ArrayList<String>();
+        nakitFB = new ArrayList<String>();
+        kredikartiFB = new ArrayList<String>();
 
         getDataFirebase();
     }
@@ -84,52 +90,114 @@ public class SatisIslemleri extends AppCompatActivity {
 
     public void satisYapButtonClick(View view) {
 
+        try{
+            AlertDialog.Builder alertDialogBuilder=new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Ödeme Türünü Seciniz").setCancelable(false).setPositiveButton("Nakit", new DialogInterface.OnClickListener() {
 
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    UUID uuid = UUID.randomUUID();
+                    String uuidString = uuid.toString();
 
-        UUID uuid = UUID.randomUUID();
-        String uuidString = uuid.toString();
+                    String tarih = islemTarihi.getText().toString();
 
-        String tarih = islemTarihi.getText().toString();
+                    myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+                    myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
+                    myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
+                    myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
+                    myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
+                    myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
+                    myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
 
-        myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
-        myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
-        myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
-        myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
-        myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
-        myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
-        myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
+                    int borçInt = Integer.parseInt(borçFB.get(0));
+                    int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
+                    int toplamInt = Integer.parseInt(toplam);
 
-        int borçInt = Integer.parseInt(borçFB.get(0));
-        int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
-        int toplamInt = Integer.parseInt(toplam);
+                    myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+                    myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
 
-        myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
-        myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+                    int nakit = Integer.parseInt(nakitFB.get(0));
 
-        Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
+                    myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit+toplamInt));
 
-        String isim = "";
-        String adet = "0";
-        String netTutar = "";
-        String kdv = "";
-        String toplam = "0";
-        String musteriName=" ";
-        Intent intent = new Intent(getApplicationContext(), Satislar.class);
+                    Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
-        intent.putExtra("musteriName", musteriName);
-        intent.putExtra("isim", isim);
-        intent.putExtra("adet", adet);
-        intent.putExtra("netTutar", netTutar);
-        intent.putExtra("kdv", kdv);
-        intent.putExtra("toplam", toplam);
+                    String isim = "";
+                    String adet = "0";
+                    String netTutar = "";
+                    String kdv = "";
+                    String toplam = "0";
+                    String musteriName=" ";
+                    Intent intent = new Intent(getApplicationContext(), Satislar.class);
 
-        startActivity(intent);
+                    intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("isim", isim);
+                    intent.putExtra("adet", adet);
+                    intent.putExtra("netTutar", netTutar);
+                    intent.putExtra("kdv", kdv);
+                    intent.putExtra("toplam", toplam);
+
+                    startActivity(intent);
+                }
+
+            }).setNegativeButton("Kredi Kartı", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    UUID uuid = UUID.randomUUID();
+                    String uuidString = uuid.toString();
+
+                    String tarih = islemTarihi.getText().toString();
+
+                    myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+                    myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
+                    myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
+                    myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
+                    myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
+                    myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
+                    myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
+
+                    int borçInt = Integer.parseInt(borçFB.get(0));
+                    int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
+                    int toplamInt = Integer.parseInt(toplam);
+
+                    myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+                    myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+
+                    int krediKartı = Integer.parseInt(nakitFB.get(0));
+
+                    myRef.child("KasaHesabı").child("kredikartı").child("kredikartı").setValue(Integer.toString(krediKartı+toplamInt));
+
+                    Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
+
+                    String isim = "";
+                    String adet = "0";
+                    String netTutar = "";
+                    String kdv = "";
+                    String toplam = "0";
+                    String musteriName=" ";
+                    Intent intent = new Intent(getApplicationContext(), Satislar.class);
+
+                    intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("isim", isim);
+                    intent.putExtra("adet", adet);
+                    intent.putExtra("netTutar", netTutar);
+                    intent.putExtra("kdv", kdv);
+                    intent.putExtra("toplam", toplam);
+
+                    startActivity(intent);
+                }
+            });
+
+            alertDialogBuilder.create().show();
+        }
+        catch(IllegalStateException e){
+            e.printStackTrace();
+        }
 
     }
 
     private void getDataFirebase() {
-
-        System.out.println("musteriName "+musteriName);
 
         DatabaseReference newReference = database.getReference("Kasa");
         newReference.addValueEventListener(new ValueEventListener() {
@@ -146,9 +214,6 @@ public class SatisIslemleri extends AppCompatActivity {
                     }
 
                 }
-
-                System.out.println("aaaborçFB = " +borçFB);
-                System.out.println("aaatoplamciroFB = " +toplamciroFB);
             }
 
             @Override
@@ -156,7 +221,26 @@ public class SatisIslemleri extends AppCompatActivity {
 
             }
         });
+
+        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
+                    nakitFB.add((String) hashMap2.get("nakit"));
+                    kredikartiFB.add((String) hashMap2.get("kredikartı"));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
-
-
 }

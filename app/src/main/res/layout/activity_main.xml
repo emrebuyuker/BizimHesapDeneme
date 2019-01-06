@@ -11,11 +11,14 @@
         android:id="@+id/raporlar"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:onClick="raporlarButtonClick"
         android:text="RAPORLAR"
-        app:layout_constraintStart_toStartOf="@+id/hesaplar"
-        app:layout_constraintTop_toBottomOf="@+id/hesaplar" />
+        app:layout_constraintEnd_toStartOf="@+id/stoklar"
+        app:layout_constraintStart_toEndOf="@+id/hesaplar"
+        app:layout_constraintTop_toBottomOf="@+id/masraflar" />
 
     <Button
         android:id="@+id/hesaplar"
@@ -26,16 +29,6 @@
         android:text="HESAPLAR"
         app:layout_constraintStart_toStartOf="@+id/satislar"
         app:layout_constraintTop_toBottomOf="@+id/satislar" />
-
-    <Button
-        android:id="@+id/calisanlar"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:onClick="calisanlarButtonClick"
-        android:text="ÇALIŞANLAR"
-        app:layout_constraintStart_toStartOf="@+id/masraflar"
-        app:layout_constraintTop_toBottomOf="@+id/masraflar" />
 
     <Button
         android:id="@+id/stoklar"

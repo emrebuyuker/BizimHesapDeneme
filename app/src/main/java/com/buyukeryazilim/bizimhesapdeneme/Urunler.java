@@ -121,14 +121,31 @@ public class Urunler extends AppCompatActivity {
 
                     urunName = urunNameFB.get(position);
                     birimFiyat = satisFiyatFB.get(position);
-                    kdvOrani = satisKDVOraniFB.get(position);
 
                     Intent intent = new Intent(getApplicationContext(), SatisIslemleriDetay.class);
 
                     intent.putExtra("urunName", urunName);
                     intent.putExtra("musteriName", musteriName);
                     intent.putExtra("birimFiyat", birimFiyat);
-                    intent.putExtra("kdvOrani", kdvOrani);
+                    intent.putExtra("kdvOrani", satisKDVOraniFB.get(position));
+
+                    startActivity(intent);
+
+                }
+            });
+
+        }else if(mod.equals("alış")){
+
+            listViewUrunler.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Intent intent = new Intent(getApplicationContext(), AlisIslemleriDetay.class);
+
+                    intent.putExtra("urunName", urunNameFB.get(position));
+                    intent.putExtra("musteriName", musteriName);
+                    intent.putExtra("birimFiyat", alisFiyatiFB.get(position));
+                    intent.putExtra("kdvOrani", alisKDVOranıFB.get(position));
 
                     startActivity(intent);
 

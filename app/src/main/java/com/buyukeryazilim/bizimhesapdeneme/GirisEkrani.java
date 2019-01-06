@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class GirisEkrani extends AppCompatActivity {
 
@@ -21,6 +23,9 @@ public class GirisEkrani extends AppCompatActivity {
 
     EditText emailText;
     EditText passwordText;
+
+    DatabaseReference myRef;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +36,14 @@ public class GirisEkrani extends AppCompatActivity {
 
         emailText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
     }
 
     public void signUp (View view) {
+
+
 
         mAuth.createUserWithEmailAndPassword(emailText.getText().toString(), passwordText.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -42,6 +52,9 @@ public class GirisEkrani extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             Toast.makeText(getApplicationContext(),"User Created",Toast.LENGTH_LONG).show();
+
+                            myRef.child("KasaHesabı").child("kredikartı").child("kredikartı").setValue("0");
+                            myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue("0");
 
                             Intent intent = new Intent(getApplicationContext(),GirisEkrani.class);
                             startActivity(intent);
@@ -56,6 +69,11 @@ public class GirisEkrani extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
     }
 
     public void signIn (View view) {

@@ -38,7 +38,9 @@
         <activity android:name=".SatisIslemleriDetay" />
         <activity android:name=".SatisBilgisi" />
         <activity android:name=".MusteriOdemeEkrani" />
-        <activity android:name=".TedarikciOdemeEkrani"></activity>
+        <activity android:name=".TedarikciOdemeEkrani" />
+        <activity android:name=".AlisIslemleri" />
+        <activity android:name=".AlisIslemleriDetay"></activity>
     </application>
 
 </manifest>

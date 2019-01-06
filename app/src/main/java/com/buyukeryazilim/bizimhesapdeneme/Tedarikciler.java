@@ -33,6 +33,8 @@ public class Tedarikciler extends AppCompatActivity {
 
     Context context = this;
 
+    String mod="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,9 @@ public class Tedarikciler extends AppCompatActivity {
         tedarikciAdresFB = new ArrayList<String>();
         tedarikciMailFB = new ArrayList<String>();
         tedarikciTelefonFB = new ArrayList<String>();
+
+        Intent intent = getIntent();
+        mod = intent.getStringExtra("mod");
 
         getDataFirebase();
         listViewOnClick();
@@ -91,23 +96,45 @@ public class Tedarikciler extends AppCompatActivity {
 
     private void listViewOnClick() {
 
-        listViewTedarikci.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (mod.equals("alış")) {
 
-                Intent intent = new Intent(getApplicationContext(), TedarikciBilgileriDetay.class);
+            listViewTedarikci.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                System.out.println("tedarikciAdresFB.get(position)= "+tedarikciAdresFB.get(position));
+                    Intent intent = new Intent(getApplicationContext(), AlisIslemleri.class);
 
-                intent.putExtra("tedarikciName", tedarikciNameFB.get(position));
-                intent.putExtra("tedarikciAdres", tedarikciAdresFB.get(position));
-                intent.putExtra("tedarikciMail", tedarikciMailFB.get(position));
-                intent.putExtra("tedarikciTelefon", tedarikciTelefonFB.get(position));
+                    System.out.println("tedarikciAdresFB.get(position)= "+tedarikciAdresFB.get(position));
 
-                startActivity(intent);
+                    intent.putExtra("tedarikciName", tedarikciNameFB.get(position));
+                    intent.putExtra("tedarikciAdres", tedarikciAdresFB.get(position));
+                    intent.putExtra("tedarikciMail", tedarikciMailFB.get(position));
+                    intent.putExtra("tedarikciTelefon", tedarikciTelefonFB.get(position));
+
+                    startActivity(intent);
 
             }
         });
+        }else{
+
+            listViewTedarikci.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Intent intent = new Intent(getApplicationContext(), TedarikciBilgileriDetay.class);
+
+                    System.out.println("tedarikciAdresFB.get(position)= "+tedarikciAdresFB.get(position));
+
+                    intent.putExtra("tedarikciName", tedarikciNameFB.get(position));
+                    intent.putExtra("tedarikciAdres", tedarikciAdresFB.get(position));
+                    intent.putExtra("tedarikciMail", tedarikciMailFB.get(position));
+                    intent.putExtra("tedarikciTelefon", tedarikciTelefonFB.get(position));
+
+                    startActivity(intent);
+
+                }
+            });
+        }
     }
 
     @Override
