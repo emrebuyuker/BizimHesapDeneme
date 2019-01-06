@@ -60,7 +60,9 @@ public class TedarikciBilgileri extends AppCompatActivity {
 
         Toast.makeText(getApplicationContext(),"Tedarikçi eklendi",Toast.LENGTH_LONG).show();
 
+        String mod = "tedarikciKayıt";
         Intent intent = new Intent(getApplicationContext(), Tedarikciler.class);
+        intent.putExtra("mod",mod);
         startActivity(intent);
 
     }

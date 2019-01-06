@@ -2,15 +2,21 @@ package com.buyukeryazilim.bizimhesapdeneme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Masraflar extends AppCompatActivity {
@@ -18,6 +24,9 @@ public class Masraflar extends AppCompatActivity {
     EditText eTextMasrafIsim;
     EditText editTMasrafTutarı;
     EditText editTMasrafAcilma;
+
+    ArrayList<String> nakitFB;
+    ArrayList<String> kredikartiFB;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -33,6 +42,11 @@ public class Masraflar extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+
+        nakitFB = new ArrayList<String>();
+        kredikartiFB = new ArrayList<String>();
+
+        getDataFirebase();
 
 
     }
@@ -54,10 +68,39 @@ public class Masraflar extends AppCompatActivity {
         myRef.child("Masraflar").child(uuidString).child("masrafTutarı").setValue(editTMasrafTutarı.getText().toString());
         myRef.child("Masraflar").child(uuidString).child("masrafAcıklama").setValue(editTMasrafAcilma.getText().toString());
 
+        int nakit = Integer.parseInt(nakitFB.get(0));
+        int toplamInt = Integer.parseInt(editTMasrafTutarı.getText().toString());
+
+        myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit-toplamInt));
+
         Toast.makeText(getApplicationContext(),"Masraf eklendi",Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getApplicationContext(), Masraflar.class);
         startActivity(intent);
+
+    }
+
+    private void getDataFirebase() {
+
+        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
+                    nakitFB.add((String) hashMap2.get("nakit"));
+                    kredikartiFB.add((String) hashMap2.get("kredikartı"));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }

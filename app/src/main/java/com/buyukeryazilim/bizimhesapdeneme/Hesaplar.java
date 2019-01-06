@@ -46,13 +46,6 @@ public class Hesaplar extends AppCompatActivity {
 
         getDataFirebase();
 
-        System.out.println("nakitFB= "+nakitFB);
-        System.out.println("kredikartiFB= "+kredikartiFB);
-
-
-
-
-
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

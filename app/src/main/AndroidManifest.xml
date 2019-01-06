@@ -40,7 +40,8 @@
         <activity android:name=".MusteriOdemeEkrani" />
         <activity android:name=".TedarikciOdemeEkrani" />
         <activity android:name=".AlisIslemleri" />
-        <activity android:name=".AlisIslemleriDetay"></activity>
+        <activity android:name=".AlisIslemleriDetay" />
+        <activity android:name=".StokDetayi"></activity>
     </application>
 
 </manifest>

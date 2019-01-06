@@ -29,7 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void tedarikcilerButtonClick(View view) {
 
+        String mod = "tedarikci";
         Intent intent = new Intent(getApplicationContext(), Tedarikciler.class);
+        intent.putExtra("mod",mod);
         startActivity(intent);
 
     }
@@ -67,13 +69,6 @@ public class MainActivity extends AppCompatActivity {
     public void hesaplarButtonClick(View view) {
 
         Intent intent = new Intent(getApplicationContext(), Hesaplar.class);
-        startActivity(intent);
-
-    }
-
-    public void calisanlarButtonClick(View view) {
-
-        Intent intent = new Intent(getApplicationContext(), Calisanlar.class);
         startActivity(intent);
 
     }

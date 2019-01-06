@@ -2,16 +2,22 @@ package com.buyukeryazilim.bizimhesapdeneme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class AlisIslemleri extends AppCompatActivity {
@@ -27,6 +33,11 @@ public class AlisIslemleri extends AppCompatActivity {
     String kdv;
     String toplam;
 
+    ArrayList<String> nakitFB;
+    ArrayList<String> kredikartiFB;
+    ArrayList<String> borcFB;
+    ArrayList<String> ciroFB;
+
     DatabaseReference myRef;
     FirebaseDatabase database;
 
@@ -39,6 +50,8 @@ public class AlisIslemleri extends AppCompatActivity {
         islemTarihi = findViewById(R.id.textViewIslemTarihi);
         textVSatısYapılanKisi = findViewById(R.id.textViewSatısYapılanKisi);
         textVToplam = findViewById(R.id.textViewToplam);
+
+
 
         Date tarih = new Date();
         SimpleDateFormat bugun = new SimpleDateFormat("dd/MM/yyyy");
@@ -58,6 +71,13 @@ public class AlisIslemleri extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+
+        nakitFB = new ArrayList<String>();
+        kredikartiFB = new ArrayList<String>();
+        borcFB = new ArrayList<String>();
+        ciroFB = new ArrayList<String>();
+
+        getDataFirebase();
     }
 
     public void urunEkleButtonClickk(View view) {
@@ -74,6 +94,14 @@ public class AlisIslemleri extends AppCompatActivity {
 
 
 
+        int toplamInt = Integer.parseInt(toplam);
+
+        int borçInt = Integer.parseInt(borcFB.get(0));
+        int toplamciroInt = Integer.parseInt(ciroFB.get(0));
+
+        myRef.child("TedarikciKasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+        myRef.child("TedarikciKasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+
         UUID uuid = UUID.randomUUID();
         String uuidString = uuid.toString();
 
@@ -87,12 +115,20 @@ public class AlisIslemleri extends AppCompatActivity {
         myRef.child("Alış").child(uuidString).child("kdv").setValue(kdv);
         myRef.child("Alış").child(uuidString).child("toplam").setValue(toplam);
 
-        /*int borçInt = Integer.parseInt(borçFB.get(0));
-        int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
-        int toplamInt = Integer.parseInt(toplam);
+        System.out.println("borcFB= "+borcFB.get(0));
 
-        myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
-        myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));*/
+
+        System.out.println("borcFB= "+borcFB);
+        int nakit = Integer.parseInt(nakitFB.get(0));
+
+        System.out.println("borcFB= "+borcFB.get(0));
+
+        myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit-toplamInt));
+
+        //int borcInt = Integer.parseInt(borcFB.get(0));
+
+        System.out.println("borcFB= "+borcFB.get(0));
+
 
         Toast.makeText(getApplicationContext(),"Alış İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
@@ -112,6 +148,77 @@ public class AlisIslemleri extends AppCompatActivity {
         intent.putExtra("toplam", toplam);*/
 
         startActivity(intent);
+
+    }
+
+    private void getDataFirebasee() {
+
+        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
+                    nakitFB.add((String) hashMap2.get("nakit"));
+                    kredikartiFB.add((String) hashMap2.get("kredikartı"));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getDataFirebase() {
+
+        DatabaseReference newReference = database.getReference("TedarikciKasa");
+        newReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    if (ds.getKey().equals(musteriName)) {
+
+                        HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
+                        borcFB.add((String) hashMap.get("borç"));
+                        ciroFB.add((String) hashMap.get("toplamciro"));
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap2 = (HashMap<String, Object>) ds.getValue();
+                    nakitFB.add((String) hashMap2.get("nakit"));
+                    kredikartiFB.add((String) hashMap2.get("kredikartı"));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 }
