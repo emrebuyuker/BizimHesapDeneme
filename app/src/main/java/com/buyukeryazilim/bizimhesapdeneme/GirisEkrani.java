@@ -27,6 +27,8 @@ public class GirisEkrani extends AppCompatActivity {
     DatabaseReference myRef;
     FirebaseDatabase database;
 
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,8 @@ public class GirisEkrani extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(),"User Created",Toast.LENGTH_LONG).show();
 
-                            myRef.child("KasaHesabı").child("kredikartı").child("kredikartı").setValue("0");
-                            myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue("0");
+                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("kredikartı").setValue("0");
+                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("nakit").setValue("0");
 
                             Intent intent = new Intent(getApplicationContext(),GirisEkrani.class);
                             startActivity(intent);

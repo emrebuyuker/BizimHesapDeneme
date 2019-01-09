@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,10 +31,13 @@ public class Tedarikciler extends AppCompatActivity {
     ArrayList<String> tedarikciAdresFB;
     ArrayList<String> tedarikciMailFB;
     ArrayList<String> tedarikciTelefonFB;
+    ArrayList<String> urunKeyFB;
 
     Context context = this;
 
     String mod="";
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class Tedarikciler extends AppCompatActivity {
         tedarikciAdresFB = new ArrayList<String>();
         tedarikciMailFB = new ArrayList<String>();
         tedarikciTelefonFB = new ArrayList<String>();
+        urunKeyFB = new ArrayList<String>();
 
         Intent intent = getIntent();
         mod = intent.getStringExtra("mod");
@@ -66,7 +71,7 @@ public class Tedarikciler extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Tedarikçiler");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Tedarikçiler");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -84,6 +89,29 @@ public class Tedarikciler extends AppCompatActivity {
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Tedarikciler.this, android.R.layout.simple_list_item_1, android.R.id.text1, tedarikciNameFB);
                 listViewTedarikci.setAdapter(veriAdaptoru);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Ürünler");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                System.out.println("dataSnapshot2 = "+dataSnapshot.getChildren());
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
+
+                    urunKeyFB.add(ds.getKey());
+                }
 
             }
 
@@ -110,6 +138,7 @@ public class Tedarikciler extends AppCompatActivity {
                     intent.putExtra("tedarikciAdres", tedarikciAdresFB.get(position));
                     intent.putExtra("tedarikciMail", tedarikciMailFB.get(position));
                     intent.putExtra("tedarikciTelefon", tedarikciTelefonFB.get(position));
+                    intent.putExtra("urunKey", urunKeyFB.get(position));
 
                     startActivity(intent);
 

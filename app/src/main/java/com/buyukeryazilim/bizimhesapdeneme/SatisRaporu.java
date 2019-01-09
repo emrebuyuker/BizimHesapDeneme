@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +36,8 @@ public class SatisRaporu extends AppCompatActivity {
     ArrayList<String> netTutarFB;
     ArrayList<String> toplamFB;
     ArrayList<String> adetFB;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -64,7 +68,7 @@ public class SatisRaporu extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Satış");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Satış");
         newReference.orderByChild("islemTarihi2").startAt(başlangıçTarihi).endAt(bitişTarihi).addValueEventListener(new ValueEventListener() {
         //newReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,6 +90,8 @@ public class SatisRaporu extends AppCompatActivity {
                     musteriMailFB.add((String) hashMap.get("mail"));
                     musteriTelefonFB.add((String) hashMap.get("telefon"));*/
                 }
+
+                System.out.println("isimFB= "+isimFB);
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(SatisRaporu.this, android.R.layout.simple_list_item_1, android.R.id.text1, isimFB);
                 listView.setAdapter(veriAdaptoru);
@@ -119,6 +125,14 @@ public class SatisRaporu extends AppCompatActivity {
 
             }
         });
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent(getApplicationContext(), Raporlar.class);
+            startActivity(intent);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,8 @@ public class Hesaplar extends AppCompatActivity {
 
     DatabaseReference myRef;
     FirebaseDatabase database;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -58,7 +61,7 @@ public class Hesaplar extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-       DatabaseReference newReference2 = database.getReference("KasaHesabı");
+       DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı");
         newReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

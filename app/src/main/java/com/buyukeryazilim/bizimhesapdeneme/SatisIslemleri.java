@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +35,8 @@ public class SatisIslemleri extends AppCompatActivity {
     String netTutar;
     String kdv;
     String toplam;
+    String urunKey;
+    String adetFB;
 
     ArrayList<String> borçFB;
     ArrayList<String> toplamciroFB;
@@ -44,6 +47,8 @@ public class SatisIslemleri extends AppCompatActivity {
     FirebaseDatabase database;
 
     SimpleDateFormat bugun ;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class SatisIslemleri extends AppCompatActivity {
         netTutar = intent.getStringExtra("netTutar");
         kdv = intent.getStringExtra("kdv");
         toplam = intent.getStringExtra("toplam");
+        urunKey = intent.getStringExtra("urunKey");
 
 
         textVToplam.setText(toplam);
@@ -108,25 +114,30 @@ public class SatisIslemleri extends AppCompatActivity {
 
 
 
-                    myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
-                    myRef.child("Satış").child(uuidString).child("islemTarihi2").setValue(bugun.format(tarih2));
-                    myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
-                    myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
-                    myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
-                    myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
-                    myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
-                    myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("islemTarihi2").setValue(bugun.format(tarih2));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("adet").setValue(adet);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("isim").setValue(isim);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("kdv").setValue(kdv);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("toplam").setValue(toplam);
+
+                    int adetIntFB = Integer.parseInt(adetFB.toString());
+                    int adetInt = Integer.parseInt(adet);
+
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Ürünler").child(urunKey).child("adet").setValue(Integer.toString(adetIntFB-adetInt));
 
                     int borçInt = Integer.parseInt(borçFB.get(0));
                     int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
                     int toplamInt = Integer.parseInt(toplam);
 
-                    myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
-                    myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
 
                     int nakit = Integer.parseInt(nakitFB.get(0));
 
-                    myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit+toplamInt));
 
                     Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
@@ -157,24 +168,33 @@ public class SatisIslemleri extends AppCompatActivity {
 
                     String tarih = islemTarihi.getText().toString();
 
-                    myRef.child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
-                    myRef.child("Satış").child(uuidString).child("adet").setValue(adet);
-                    myRef.child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
-                    myRef.child("Satış").child(uuidString).child("isim").setValue(isim);
-                    myRef.child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
-                    myRef.child("Satış").child(uuidString).child("kdv").setValue(kdv);
-                    myRef.child("Satış").child(uuidString).child("toplam").setValue(toplam);
+                    Date tarih2 = new Date();
+                    bugun = new SimpleDateFormat("yyyy/MM/dd");
+
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("islemTarihi").setValue(tarih);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("islemTarihi2").setValue(bugun.format(tarih2));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("adet").setValue(adet);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("musteriName").setValue(musteriName);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("isim").setValue(isim);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("netTutar").setValue(netTutar);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("kdv").setValue(kdv);
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Satış").child(uuidString).child("toplam").setValue(toplam);
+
+                    int adetIntFB = Integer.parseInt(adetFB.toString());
+                    int adetInt = Integer.parseInt(adet);
+
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Ürünler").child(urunKey).child("adet").setValue(Integer.toString(adetIntFB-adetInt));
 
                     int borçInt = Integer.parseInt(borçFB.get(0));
                     int toplamciroInt = Integer.parseInt(toplamciroFB.get(0));
                     int toplamInt = Integer.parseInt(toplam);
 
-                    myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
-                    myRef.child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(borçInt+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("toplamciro").setValue(Integer.toString(toplamciroInt+toplamInt));
 
-                    int krediKartı = Integer.parseInt(nakitFB.get(0));
+                    int krediKartı = Integer.parseInt(kredikartiFB.get(0));
 
-                    myRef.child("KasaHesabı").child("kredikartı").child("kredikartı").setValue(Integer.toString(krediKartı+toplamInt));
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("kredikartı").setValue(Integer.toString(krediKartı+toplamInt));
 
                     Toast.makeText(getApplicationContext(),"Satış İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
@@ -207,7 +227,7 @@ public class SatisIslemleri extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Kasa");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Kasa");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -230,7 +250,7 @@ public class SatisIslemleri extends AppCompatActivity {
             }
         });
 
-        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı");
         newReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -242,6 +262,23 @@ public class SatisIslemleri extends AppCompatActivity {
                     kredikartiFB.add((String) hashMap2.get("kredikartı"));
 
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        System.out.println("urunKey= "+urunKey);
+
+        DatabaseReference newReference3 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Ürünler").child(urunKey).child("adet");
+        newReference3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                adetFB=dataSnapshot.getValue().toString();
+
             }
 
             @Override

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +44,7 @@ public class Satislar extends AppCompatActivity {
     String toplam;
     String adet;
 
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     Context context = this;
 
@@ -80,7 +82,7 @@ public class Satislar extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Satış");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Satış");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

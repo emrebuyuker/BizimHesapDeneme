@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,8 @@ public class TedarikciBilgileriDetay extends AppCompatActivity {
 
     ArrayList<String> borçFB;
     ArrayList<String> toplamciroFB;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
 
     @Override
@@ -70,7 +73,7 @@ public class TedarikciBilgileriDetay extends AppCompatActivity {
 
         System.out.println("musteriName "+musteriName);
 
-        DatabaseReference newReference = database.getReference("TedarikciKasa");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("TedarikciKasa");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

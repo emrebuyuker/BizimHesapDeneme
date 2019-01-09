@@ -24,13 +24,12 @@ public class SatisIslemleriDetay extends AppCompatActivity {
 
     EditText miktar;
 
-
-
     FirebaseDatabase database;
 
     String musteriName;
     String birimFiyat;
     String kdvOrani;
+    String urunKey;
 
     Context context = this;
 
@@ -52,6 +51,7 @@ public class SatisIslemleriDetay extends AppCompatActivity {
         musteriName = intent.getStringExtra("musteriName");
         birimFiyat = intent.getStringExtra("birimFiyat");
         kdvOrani = intent.getStringExtra("kdvOrani");
+        urunKey = intent.getStringExtra("urunKey");
 
         urunIsmi.setText(urunName);
         textVBirimFiyat.setText(birimFiyat);
@@ -117,6 +117,7 @@ public class SatisIslemleriDetay extends AppCompatActivity {
         intent.putExtra("netTutar", netTutar);
         intent.putExtra("kdv", kdv);
         intent.putExtra("toplam", toplam);
+        intent.putExtra("urunKey", urunKey);
 
         startActivity(intent);
 

@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,8 @@ public class Stoklar extends AppCompatActivity {
     String urunAdeti;
 
     FirebaseDatabase database;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,7 @@ public class Stoklar extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Ürünler");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Ürünler");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

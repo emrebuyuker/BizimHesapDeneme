@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,8 @@ public class Masraflar extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +67,14 @@ public class Masraflar extends AppCompatActivity {
         UUID uuid = UUID.randomUUID();
         String uuidString = uuid.toString();
 
-        myRef.child("Masraflar").child(uuidString).child("masrafIsim").setValue(eTextMasrafIsim.getText().toString());
-        myRef.child("Masraflar").child(uuidString).child("masrafTutarı").setValue(editTMasrafTutarı.getText().toString());
-        myRef.child("Masraflar").child(uuidString).child("masrafAcıklama").setValue(editTMasrafAcilma.getText().toString());
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Masraflar").child(uuidString).child("masrafIsim").setValue(eTextMasrafIsim.getText().toString());
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Masraflar").child(uuidString).child("masrafTutarı").setValue(editTMasrafTutarı.getText().toString());
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Masraflar").child(uuidString).child("masrafAcıklama").setValue(editTMasrafAcilma.getText().toString());
 
         int nakit = Integer.parseInt(nakitFB.get(0));
         int toplamInt = Integer.parseInt(editTMasrafTutarı.getText().toString());
 
-        myRef.child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit-toplamInt));
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("nakit").setValue(Integer.toString(nakit-toplamInt));
 
         Toast.makeText(getApplicationContext(),"Masraf eklendi",Toast.LENGTH_LONG).show();
 
@@ -82,7 +85,7 @@ public class Masraflar extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference2 = database.getReference("KasaHesabı");
+        DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı");
         newReference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

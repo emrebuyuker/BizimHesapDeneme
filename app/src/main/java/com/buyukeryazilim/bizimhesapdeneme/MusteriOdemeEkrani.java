@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,6 +29,8 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
 
     DatabaseReference myRef;
     FirebaseDatabase database;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
 
     public void odemeYapButtonClick(View view) {
 
-        myRef.child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(toplamBorcInt-odenecekTutarInt));
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(toplamBorcInt-odenecekTutarInt));
 
         Toast.makeText(getApplicationContext(),"Ödeme İşlemi Başarılı",Toast.LENGTH_LONG).show();
 

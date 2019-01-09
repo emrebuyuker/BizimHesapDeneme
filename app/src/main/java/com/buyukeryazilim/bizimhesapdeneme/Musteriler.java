@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class Musteriler extends AppCompatActivity {
     ArrayList<String> musteriAdresFB;
     ArrayList<String> musteriMailFB;
     ArrayList<String> musteriTelefonFB;
+    ArrayList<String> urunKeyFB;
 
     String musteriName;
     String musteriAdres;
@@ -37,6 +39,7 @@ public class Musteriler extends AppCompatActivity {
     String musteriTelefon;
     String mod="";
 
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     Context context = this;
 
@@ -58,6 +61,7 @@ public class Musteriler extends AppCompatActivity {
         musteriAdresFB = new ArrayList<String>();
         musteriMailFB = new ArrayList<String>();
         musteriTelefonFB = new ArrayList<String>();
+        urunKeyFB = new ArrayList<String>();
 
         getDataFirebase();
         listViewOnClick();
@@ -72,7 +76,7 @@ public class Musteriler extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        DatabaseReference newReference = database.getReference("Müşteriler");
+        DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler");
         newReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -90,6 +94,28 @@ public class Musteriler extends AppCompatActivity {
 
                 ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
                 listViewMusteri.setAdapter(veriAdaptoru);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Ürünler");
+        newReference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                System.out.println("dataSnapshot2 = "+dataSnapshot.getChildren());
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    HashMap<String, Object> hashMap = (HashMap<String, Object>) ds.getValue();
+
+                    urunKeyFB.add(ds.getKey());
+                }
 
             }
 
@@ -127,6 +153,7 @@ public class Musteriler extends AppCompatActivity {
                     intent.putExtra("netTutar", netTutar);
                     intent.putExtra("kdv", kdv);
                     intent.putExtra("toplam", toplam);
+                    intent.putExtra("urunKey", urunKeyFB.get(position));
 
 
                     startActivity(intent);

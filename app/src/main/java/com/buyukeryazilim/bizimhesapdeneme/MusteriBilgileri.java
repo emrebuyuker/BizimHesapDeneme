@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +25,8 @@ public class MusteriBilgileri extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference myRef;
+
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,13 @@ public class MusteriBilgileri extends AppCompatActivity {
         UUID uuid = UUID.randomUUID();
         String uuidString = uuid.toString();
 
-        myRef.child("Müşteriler").child(uuidString).child("isim").setValue(isim);
-        myRef.child("Müşteriler").child(uuidString).child("telefon").setValue(telefon);
-        myRef.child("Müşteriler").child(uuidString).child("mail").setValue(mail);
-        myRef.child("Müşteriler").child(uuidString).child("adres").setValue(adres);
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler").child(uuidString).child("isim").setValue(isim);
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler").child(uuidString).child("telefon").setValue(telefon);
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler").child(uuidString).child("mail").setValue(mail);
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler").child(uuidString).child("adres").setValue(adres);
 
-        myRef.child("Kasa").child(isim).child("borç").setValue("0");
-        myRef.child("Kasa").child(isim).child("toplamciro").setValue("0");
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(isim).child("borç").setValue("0");
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(isim).child("toplamciro").setValue("0");
 
         Toast.makeText(getApplicationContext(),"Müşteri eklendi",Toast.LENGTH_LONG).show();
 
