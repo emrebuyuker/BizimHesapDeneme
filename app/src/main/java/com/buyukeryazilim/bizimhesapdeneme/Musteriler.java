@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Musteriler extends AppCompatActivity {
 
@@ -40,6 +40,8 @@ public class Musteriler extends AppCompatActivity {
     String mod="";
 
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+
 
     Context context = this;
 
@@ -92,8 +94,12 @@ public class Musteriler extends AppCompatActivity {
                     musteriTelefonFB.add((String) hashMap.get("telefon"));
                 }
 
-                ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
-                listViewMusteri.setAdapter(veriAdaptoru);
+                //ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
+                //listViewMusteri.setAdapter(veriAdaptoru);
+
+                listViewAdapter();
+
+
 
             }
 
@@ -102,6 +108,10 @@ public class Musteriler extends AppCompatActivity {
 
             }
         });
+
+
+
+
 
         DatabaseReference newReference2 = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Ürünler");
         newReference2.addValueEventListener(new ValueEventListener() {
@@ -193,5 +203,22 @@ public class Musteriler extends AppCompatActivity {
             startActivity(intent);
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void listViewAdapter() {
+
+        final List<ListViewItem> users = new ArrayList<>();
+
+        for (int i = 0; i<musteriNameFB.size() ;i++){
+
+            users.add(new ListViewItem(musteriTelefonFB.get(i),musteriNameFB.get(i),musteriTelefonFB.get(i)));
+
+        }
+
+        final ListView listView = (ListView) findViewById(R.id.listView);
+
+        CustomAdapter adapter = new CustomAdapter(Musteriler.this, users);
+        listView.setAdapter(adapter);
+
     }
 }
