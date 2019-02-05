@@ -58,6 +58,8 @@ public class GirisEkrani extends AppCompatActivity {
                             myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("kredikartı").setValue("0");
                             myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("nakit").setValue("0");
 
+                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kod").child("müşterilerKod").setValue("1000");
+
                             Intent intent = new Intent(getApplicationContext(),GirisEkrani.class);
                             startActivity(intent);
 

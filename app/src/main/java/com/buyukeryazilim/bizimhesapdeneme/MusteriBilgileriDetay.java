@@ -2,20 +2,14 @@ package com.buyukeryazilim.bizimhesapdeneme;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MusteriBilgileriDetay extends AppCompatActivity {
 
@@ -28,6 +22,8 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
     TextView textVAlacagi;
 
     String musteriName;
+    String musteriBorcu;
+    String musteriToplamCiro;
 
     FirebaseDatabase database;
 
@@ -54,6 +50,8 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
         final String musteriAdres = intent.getStringExtra("musteriAdres");
         final String musteriMail = intent.getStringExtra("musteriMail");
         final String musteriTelefon = intent.getStringExtra("musteriTelefon");
+        musteriBorcu = intent.getStringExtra("musteriBorcu");
+        musteriToplamCiro = intent.getStringExtra("toplamciro");
 
         textViewMusteriName.setText(musteriName);
         textViTelefonNumarasi.setText(musteriTelefon);
@@ -70,7 +68,7 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
 
     private void getDataFirebase() {
 
-        System.out.println("musteriName "+musteriName);
+        /*System.out.println("musteriName "+musteriName);
 
         DatabaseReference newReference = database.getReference(firebaseAuth.getCurrentUser().getUid()).child("Kasa");
         newReference.addValueEventListener(new ValueEventListener() {
@@ -106,14 +104,26 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
+
+
+        int borcInt = Integer.parseInt(musteriBorcu);
+        textVToplamCiro.setText(musteriToplamCiro);
+
+        if (borcInt > 0){
+            textVBorc.setText(musteriBorcu);
+            textVAlacagi.setText("0");
+        }else if (borcInt < 0){
+            textVBorc.setText("0");
+            textVAlacagi.setText(Integer.toString(Math.abs(borcInt)));
+        }
     }
 
     public void odemeButtonClick (View view) {
 
         Intent intent = new Intent(getApplicationContext(), MusteriOdemeEkrani.class);
 
-        intent.putExtra("borç", borçFB.get(0));
+        intent.putExtra("borç", musteriBorcu);
         intent.putExtra("musteriName", musteriName);
 
         startActivity(intent);

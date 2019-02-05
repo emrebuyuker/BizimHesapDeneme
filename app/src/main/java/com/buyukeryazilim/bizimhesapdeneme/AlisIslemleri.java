@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,7 +74,14 @@ public class AlisIslemleri extends AppCompatActivity {
         urunKey = intent.getStringExtra("urunKey");
 
         textVSatısYapılanKisi.setText(musteriName);
-        textVToplam.setText(toplam);
+        NumberFormat formatter = new DecimalFormat("#,###");
+        if(toplam != null){
+            double toplamDouble = Double.parseDouble(toplam);
+            String formattedToplam = formatter.format(toplamDouble);
+            textVToplam.setText(formattedToplam);
+        }else{
+            textVToplam.setText(toplam);
+        }
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();

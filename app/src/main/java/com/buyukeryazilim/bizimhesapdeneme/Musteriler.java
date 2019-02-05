@@ -32,6 +32,9 @@ public class Musteriler extends AppCompatActivity {
     ArrayList<String> musteriMailFB;
     ArrayList<String> musteriTelefonFB;
     ArrayList<String> urunKeyFB;
+    ArrayList<String> borcFB;
+    ArrayList<String> kodFB;
+    ArrayList<String> toplamciroFB;
 
     String musteriName;
     String musteriAdres;
@@ -64,6 +67,10 @@ public class Musteriler extends AppCompatActivity {
         musteriMailFB = new ArrayList<String>();
         musteriTelefonFB = new ArrayList<String>();
         urunKeyFB = new ArrayList<String>();
+        borcFB = new ArrayList<String>();
+        kodFB = new ArrayList<String>();
+        toplamciroFB = new ArrayList<String>();
+
 
         getDataFirebase();
         listViewOnClick();
@@ -92,6 +99,9 @@ public class Musteriler extends AppCompatActivity {
                     musteriAdresFB.add((String) hashMap.get("adres"));
                     musteriMailFB.add((String) hashMap.get("mail"));
                     musteriTelefonFB.add((String) hashMap.get("telefon"));
+                    borcFB.add((String) hashMap.get("borç"));
+                    kodFB.add((String) hashMap.get("kod"));
+                    toplamciroFB.add((String) hashMap.get("toplamciro"));
                 }
 
                 //ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
@@ -187,6 +197,8 @@ public class Musteriler extends AppCompatActivity {
                     intent.putExtra("musteriAdres", musteriAdres);
                     intent.putExtra("musteriMail", musteriMail);
                     intent.putExtra("musteriTelefon", musteriTelefon);
+                    intent.putExtra("musteriBorcu", borcFB.get(position));
+                    intent.putExtra("musteriToplamCiro", toplamciroFB.get(position));
 
                     startActivity(intent);
 
@@ -211,7 +223,7 @@ public class Musteriler extends AppCompatActivity {
 
         for (int i = 0; i<musteriNameFB.size() ;i++){
 
-            users.add(new ListViewItem(musteriTelefonFB.get(i),musteriNameFB.get(i),musteriTelefonFB.get(i)));
+            users.add(new ListViewItem(kodFB.get(i),musteriNameFB.get(i),borcFB.get(i)));
 
         }
 
