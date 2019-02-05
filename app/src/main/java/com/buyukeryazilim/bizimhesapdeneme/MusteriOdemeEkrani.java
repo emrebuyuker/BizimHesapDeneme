@@ -23,9 +23,10 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
 
     String musteriName;
     String borc;
+    String musteriKey;
 
-    Integer odenecekTutarInt;
-    Integer toplamBorcInt;
+    double odenecekTutarInt;
+    double toplamBorcInt;
 
     DatabaseReference myRef;
     FirebaseDatabase database;
@@ -48,6 +49,9 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
         Intent intent = getIntent();
         borc = intent.getStringExtra("borç");
         musteriName = intent.getStringExtra("musteriName");
+        musteriKey = intent.getStringExtra("musteriKey");
+
+
 
         addTextChangedListener();
 
@@ -56,7 +60,7 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
 
     public void odemeYapButtonClick(View view) {
 
-        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kasa").child(musteriName).child("borç").setValue(Integer.toString(toplamBorcInt-odenecekTutarInt));
+        myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Müşteriler").child(musteriKey).child("borç").setValue(Double.toString(toplamBorcInt-odenecekTutarInt));
 
         Toast.makeText(getApplicationContext(),"Ödeme İşlemi Başarılı",Toast.LENGTH_LONG).show();
 
@@ -83,21 +87,23 @@ public class MusteriOdemeEkrani extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
+                System.out.println("editTOdenecekTutar= "+editTOdenecekTutar.getText());
+
 
                 if(editTOdenecekTutar.getText().toString().trim().equals("") )
                 {
                     Toast.makeText(MusteriOdemeEkrani.this, "Lütfen ödenecek tutar giriniz", Toast.LENGTH_SHORT).show();
                 }else{
-                    odenecekTutarInt = Integer.parseInt(editTOdenecekTutar.getText().toString());
-                    toplamBorcInt = Integer.parseInt(borc);
+                    odenecekTutarInt= Double.parseDouble(editTOdenecekTutar.getText().toString());
+                    toplamBorcInt = Double.parseDouble(borc);
 
                     textVToplamBorc.setText(borc);
                     if (toplamBorcInt-odenecekTutarInt > 0){
-                        textVKalanBorc.setText(Integer.toString(toplamBorcInt-odenecekTutarInt));
+                        textVKalanBorc.setText(Double.toString(toplamBorcInt-odenecekTutarInt));
                         textVAlacak.setText("0");
                     }else{
                         textVKalanBorc.setText("0");
-                        textVAlacak.setText(Integer.toString(odenecekTutarInt-toplamBorcInt));
+                        textVAlacak.setText(Double.toString(odenecekTutarInt-toplamBorcInt));
                     }
                 }
 

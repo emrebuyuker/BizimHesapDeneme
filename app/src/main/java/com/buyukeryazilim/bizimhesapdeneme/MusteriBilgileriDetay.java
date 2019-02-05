@@ -24,6 +24,7 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
     String musteriName;
     String musteriBorcu;
     String musteriToplamCiro;
+    String musteriKey;
 
     FirebaseDatabase database;
 
@@ -51,7 +52,8 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
         final String musteriMail = intent.getStringExtra("musteriMail");
         final String musteriTelefon = intent.getStringExtra("musteriTelefon");
         musteriBorcu = intent.getStringExtra("musteriBorcu");
-        musteriToplamCiro = intent.getStringExtra("toplamciro");
+        musteriToplamCiro = intent.getStringExtra("musteriToplamCiro");
+        musteriKey = intent.getStringExtra("musteriKey");
 
         textViewMusteriName.setText(musteriName);
         textViTelefonNumarasi.setText(musteriTelefon);
@@ -107,15 +109,16 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
         });*/
 
 
-        int borcInt = Integer.parseInt(musteriBorcu);
+        //int borcInt = Integer.parseInt(musteriBorcu);
+        double borcDouble = Double.parseDouble(musteriBorcu);
         textVToplamCiro.setText(musteriToplamCiro);
 
-        if (borcInt > 0){
+        if (borcDouble > 0){
             textVBorc.setText(musteriBorcu);
             textVAlacagi.setText("0");
-        }else if (borcInt < 0){
+        }else if (borcDouble < 0){
             textVBorc.setText("0");
-            textVAlacagi.setText(Integer.toString(Math.abs(borcInt)));
+            textVAlacagi.setText(Double.toString(Math.abs(borcDouble)));
         }
     }
 
@@ -125,6 +128,7 @@ public class MusteriBilgileriDetay extends AppCompatActivity {
 
         intent.putExtra("borç", musteriBorcu);
         intent.putExtra("musteriName", musteriName);
+        intent.putExtra("musteriKey", musteriKey);
 
         startActivity(intent);
 

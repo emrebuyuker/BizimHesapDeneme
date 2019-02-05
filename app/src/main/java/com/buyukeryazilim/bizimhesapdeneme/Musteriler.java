@@ -32,6 +32,7 @@ public class Musteriler extends AppCompatActivity {
     ArrayList<String> musteriMailFB;
     ArrayList<String> musteriTelefonFB;
     ArrayList<String> urunKeyFB;
+    ArrayList<String> musteriKeyFB;
     ArrayList<String> borcFB;
     ArrayList<String> kodFB;
     ArrayList<String> toplamciroFB;
@@ -67,6 +68,7 @@ public class Musteriler extends AppCompatActivity {
         musteriMailFB = new ArrayList<String>();
         musteriTelefonFB = new ArrayList<String>();
         urunKeyFB = new ArrayList<String>();
+        musteriKeyFB = new ArrayList<String>();
         borcFB = new ArrayList<String>();
         kodFB = new ArrayList<String>();
         toplamciroFB = new ArrayList<String>();
@@ -90,7 +92,6 @@ public class Musteriler extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                System.out.println("dataSnapshot = "+dataSnapshot);
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
@@ -102,7 +103,10 @@ public class Musteriler extends AppCompatActivity {
                     borcFB.add((String) hashMap.get("borç"));
                     kodFB.add((String) hashMap.get("kod"));
                     toplamciroFB.add((String) hashMap.get("toplamciro"));
+                    musteriKeyFB.add(ds.getKey());
                 }
+
+                System.out.println("musteriKeyFB= "+musteriKeyFB);
 
                 //ArrayAdapter<String> veriAdaptoru=new ArrayAdapter<String>(Musteriler.this, android.R.layout.simple_list_item_1, android.R.id.text1, musteriNameFB);
                 //listViewMusteri.setAdapter(veriAdaptoru);
@@ -152,7 +156,6 @@ public class Musteriler extends AppCompatActivity {
 
         if (mod.equals("satış")) {
 
-            System.out.println("mod = girdi");
 
             listViewMusteri.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -199,6 +202,7 @@ public class Musteriler extends AppCompatActivity {
                     intent.putExtra("musteriTelefon", musteriTelefon);
                     intent.putExtra("musteriBorcu", borcFB.get(position));
                     intent.putExtra("musteriToplamCiro", toplamciroFB.get(position));
+                    intent.putExtra("musteriKey", musteriKeyFB.get(position));
 
                     startActivity(intent);
 
