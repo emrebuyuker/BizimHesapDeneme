@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:234587242289:android:529488a33dd3e312",
         "android_client_info": {
-          "package_name": "com.buyukeryazilim.bizimhesapdeneme"
+          "package_name": "com.buyukeryazilim.WinpolHesabim"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "234587242289-ei5umhi3ekc8t4qocp4hito6aq6msuvd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.buyukeryazilim.bizimhesapdeneme",
+            "package_name": "com.buyukeryazilim.WinpolHesabim",
             "certificate_hash": "b76a1b5872547dbacfa03a3a46a80900ea0cd382"
           }
         },

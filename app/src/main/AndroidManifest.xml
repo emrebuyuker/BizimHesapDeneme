@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.buyukeryazilim.bizimhesapdeneme">
+    package="com.buyukeryazilim.WinpolHesabim">
 
     <application
         android:allowBackup="true"
@@ -9,38 +9,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GirisEkrani">
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.GirisEkrani">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Musteriler" />
-        <activity android:name=".Tedarikciler" />
-        <activity android:name=".Urunler" />
-        <activity android:name=".Satislar" />
-        <activity android:name=".Alislar" />
-        <activity android:name=".Masraflar" />
-        <activity android:name=".Hesaplar" />
-        <activity android:name=".Stoklar" />
-        <activity android:name=".Raporlar" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MusteriBilgileri" />
-        <activity android:name=".MusteriBilgileriDetay" />
-        <activity android:name=".TedarikciBilgileri" />
-        <activity android:name=".TedarikciBilgileriDetay" />
-        <activity android:name=".UrunBilgileri" />
-        <activity android:name=".UrunBilgileriDetay" />
-        <activity android:name=".SatisIslemleri" />
-        <activity android:name=".SatisIslemleriDetay" />
-        <activity android:name=".SatisBilgisi" />
-        <activity android:name=".MusteriOdemeEkrani" />
-        <activity android:name=".TedarikciOdemeEkrani" />
-        <activity android:name=".AlisIslemleri" />
-        <activity android:name=".AlisIslemleriDetay" />
-        <activity android:name=".StokDetayi" />
-        <activity android:name=".SatisRaporu"></activity>
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Musteriler" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Tedarikciler" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Urunler" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Satislar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Alislar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Masraflar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Hesaplar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Stoklar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.Raporlar" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.MainActivity" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.MusteriBilgileri" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.MusteriBilgileriDetay" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.TedarikciBilgileri" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.TedarikciBilgileriDetay" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.UrunBilgileri" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.UrunBilgileriDetay" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.SatisIslemleri" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.SatisIslemleriDetay" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.SatisBilgisi" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.MusteriOdemeEkrani" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.TedarikciOdemeEkrani" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.AlisIslemleri" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.AlisIslemleriDetay" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.StokDetayi" />
+        <activity android:name="com.buyukeryazilim.WinpolHesabim.SatisRaporu"></activity>
     </application>
 
 </manifest>
