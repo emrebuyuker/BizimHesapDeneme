@@ -44,40 +44,8 @@ public class GirisEkrani extends AppCompatActivity {
     }
 
     public void signUp (View view) {
-
-
-
-        mAuth.createUserWithEmailAndPassword(emailText.getText().toString(), passwordText.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                            Toast.makeText(getApplicationContext(),"User Created",Toast.LENGTH_LONG).show();
-
-                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("kredikartı").setValue("0");
-                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("KasaHesabı").child("kredikartı").child("nakit").setValue("0");
-
-                            myRef.child(firebaseAuth.getCurrentUser().getUid()).child("Kod").child("müşterilerKod").setValue("1000");
-
-                            Intent intent = new Intent(getApplicationContext(),GirisEkrani.class);
-                            startActivity(intent);
-
-                        }
-                    }
-                }).addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Toast.makeText(GirisEkrani.this,e.getLocalizedMessage().toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-
-
-
-
+        Intent intent = new Intent(getApplicationContext(),KayitEkrani.class);
+        startActivity(intent);
     }
 
     public void signIn (View view) {
@@ -111,6 +79,8 @@ public class GirisEkrani extends AppCompatActivity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
         }
+
+
 
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GirisEkrani">
+    tools:context=".KayitEkrani">
 
     <EditText
         android:id="@+id/emailText"
@@ -35,18 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:onClick="signUp"
-        android:text="KAYDOL"
+        android:text="Kaydol"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/passwordText"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="signIn"
-        android:text="GİRİŞ"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/passwordText" />
 
 </android.support.constraint.ConstraintLayout>
