@@ -1,10 +1,12 @@
 package com.buyukeryazilim.WinpolHesabim;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +26,12 @@ public class GirisEkrani extends AppCompatActivity {
     EditText emailText;
     EditText passwordText;
 
+    CheckBox chBxLogin;
+
+    Context context;
+
+    SharedPreferenc sharedPreferenc;
+
     DatabaseReference myRef;
     FirebaseDatabase database;
 
@@ -38,6 +46,19 @@ public class GirisEkrani extends AppCompatActivity {
 
         emailText = findViewById(R.id.emailText);
         passwordText = findViewById(R.id.passwordText);
+
+        chBxLogin = findViewById(R.id.checkBoxLogin);
+
+        context = this;
+
+        sharedPreferenc = new SharedPreferenc();
+
+        if(sharedPreferenc.getValueBoolean(context,"checkBox")){
+
+            emailText.setText(sharedPreferenc.getValue(context,"email"));
+            passwordText.setText(sharedPreferenc.getValue(context,"password"));
+            chBxLogin.setChecked(true);
+        }
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
@@ -80,9 +101,19 @@ public class GirisEkrani extends AppCompatActivity {
 
         }
 
+        if(chBxLogin.isChecked()){
 
+            sharedPreferenc.save(context,"email",emailText.getText().toString());
+            sharedPreferenc.save(context,"password",passwordText.getText().toString());
+            sharedPreferenc.saveBoolean(context,"checkBox",true);
 
+        }else{
 
+            sharedPreferenc.save(context,"email","");
+            sharedPreferenc.save(context,"password","");
+            sharedPreferenc.saveBoolean(context,"checkBox",false);
+
+        }
 
     }
 }
